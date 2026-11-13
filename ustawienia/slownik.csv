@@ -1,0 +1,39 @@
+opcja_w_shopify,wartość_w_shopify,atrybut_google,wartość_EN,wartość_DE,wartość_PL,fragment_tytułu_EN,fragment_tytułu_DE,fragment_tytułu_PL,typ_wariantu
+Length,110 cm,size,110 cm,110 cm,110 cm,110 cm,110 cm,110 cm,standard
+Length,120 cm,size,120 cm,120 cm,120 cm,120 cm,120 cm,120 cm,standard
+Length,130 cm - Standard,size,130 cm,130 cm,130 cm,130 cm,130 cm,130 cm,standard
+Length,140 cm,size,140 cm,140 cm,140 cm,140 cm,140 cm,140 cm,standard
+Length,150 cm,size,150 cm,150 cm,150 cm,150 cm,150 cm,150 cm,standard
+Length,160 cm,size,160 cm,160 cm,160 cm,160 cm,160 cm,160 cm,standard
+Color,Natural oak - Standard,color,Natural oak,Eiche natur,Dąb naturalny,natural oak,Eiche natur,dąb naturalny,standard
+Color,Different color - Custom Order,color,,,,custom colour,Wunschfarbe,kolor na zamówienie,na_zamowienie
+Color,Natural - standard,color,Natural oak,Eiche natur,Dąb naturalny,natural oak,Eiche natur,dąb naturalny,standard
+Color,Different - Custom Order,color,,,,custom colour,Wunschfarbe,kolor na zamówienie,na_zamowienie
+Doors,2 Doors (Open Middle),,,,,"2 doors, open middle","2 Türen, offenes Mittelfach","2 drzwi, otwarty środek",standard
+Doors,3 doors,,,,,3 doors,3 Türen,3 drzwi,standard
+Doors,None,,,,,no doors,ohne Türen,bez drzwi,standard
+Body Material,Hardwood Veneered with Natural Oak - Standard,material,Oak veneer,Eichenfurnier,Fornir dębowy,oak veneered body,Korpus Eichenfurnier,korpus fornirowany dębem,standard
+Body Material,Solid Oak,material,Solid oak,Massive Eiche,Lity dąb,solid oak body,Korpus Massiveiche,korpus z litego dębu,standard
+Doors,No Doors,,,,,no doors,ohne Türen,bez drzwi,standard
+Door opening,Push to open,,,,,push-to-open,Push-to-open,push-to-open,standard
+Door opening,Leather Handle,,,,,leather handle,Ledergriff,skórzany uchwyt,standard
+Columns - number,1 - column,,,,,1 column,1 Spalte,1 kolumna,standard
+Columns - number,2 - columns,,,,,2 columns,2 Spalten,2 kolumny,standard
+Columns - number,3 - columns,,,,,3 columns,3 Spalten,3 kolumny,standard
+Shelves - number,3-shelves,,,,,3 shelves,3 Ebenen,3 platformy,standard
+Shelves - number,2-shelves,,,,,2 shelves,2 Ebenen,2 platformy,standard
+Shelves - number,1-shelve,,,,,1 shelf,1 Ebene,1 platforma,standard
+Shelves - Length,Standard length ( 55 cm ),,,,,55 cm shelves,Ebenen 55 cm,platformy 55 cm,standard
+Shelves - Length,Long ( 100 cm ),,,,,100 cm shelves,Ebenen 100 cm,platformy 100 cm,standard
+Length,175cm - Standard,size,175 cm,175 cm,175 cm,175 cm,175 cm,175 cm,standard
+Doors,Left side,,,,,door on the left,Tür links,drzwi z lewej strony,standard
+Doors,Right side,,,,,door on the right,Tür rechts,drzwi z prawej strony,standard
+Doors opening,Push to open,,,,,push-to-open,Push-to-open,push-to-open,standard
+Doors opening,Leather Handle,,,,,leather handle,Ledergriff,skórzany uchwyt,standard
+Body Color,Natural - Standard,color,Natural oak,Eiche natur,Dąb naturalny,natural oak,Eiche natur,dąb naturalny,standard
+Body Color,Different - Custom Order,color,,,,custom colour,Wunschfarbe,kolor na zamówienie,na_zamowienie
+Door color,Natural- standard,,,,,,,,standard
+Door color,Different - Custom Order,,,,,custom colour doors,Türen in Wunschfarbe,drzwi w kolorze na zamówienie,na_zamowienie
+Front color,Natural- standard,,,,,,,,standard
+Front color,Different - Custom Order,,,,,custom colour front,Front in Wunschfarbe,front w kolorze na zamówienie,na_zamowienie
+Title,Default Title,,,,,,,,standard

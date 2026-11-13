@@ -1,0 +1,15 @@
+Ustawienie,Wartość,Opis
+Domena sklepu,https://kunsst.com,Podstawa wszystkich linków ({domena})
+Marka (brand),KUNSST FURNITURE,Wysyłana jako brand we wszystkich feedach
+Prefiks ID oferty,shopify_PL_,ID = prefiks + ID produktu + _ + ID wariantu. Nie zmieniać – zmiana resetuje historię w Google
+Stan (condition),new,
+Separator w tytule,–,Między tytułem produktu a cechami wariantu
+Bezpiecznik: min. liczba ofert w feedzie,50,"Jeśli mniej – stary feed zostaje, wysyłany jest alert"
+Bezpiecznik: maks. spadek liczby ofert,30%,Względem poprzedniego uruchomienia
+custom_label_0,linia produktów,audio / home
+custom_label_1,kategoria,desks / coffee-tables / audio-racks / vinyl-cabinets
+custom_label_2,marża,high / mid / low
+custom_label_3,bestseller,bestseller / puste
+custom_label_4,typ wariantu,standard / na_zamowienie (automatycznie ze Słownika)
+Wersja API Shopify,2026-10,Nie zmieniać bez potrzeby
+Adres sklepu (myshopify),518761-3e.myshopify.com,Techniczny adres sklepu – z niego generator pobiera dane

@@ -1,0 +1,53 @@
+# Automatyczne generowanie feedów.
+# GitHub uruchamia to sam co 6 godzin, a także na żądanie:
+# zakładka "Actions" → "Generuj feedy" → przycisk "Run workflow".
+# Gdy coś pójdzie nie tak, GitHub wyśle e-mail na adres konta.
+
+name: Generuj feedy
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"   # co 6 godzin (czas UTC), np. 01:17, 07:17, 13:17, 19:17 w Polsce zimą
+  workflow_dispatch: {}       # przycisk "Run workflow"
+  push:
+    paths:
+      - "ustawienia/**"       # zmiana ustawień = od razu nowe feedy
+      - "generator/**"
+
+permissions:
+  contents: write             # pozwala zapisać nowe pliki feedów w repozytorium
+
+concurrency:
+  group: generuj-feedy
+  cancel-in-progress: false
+
+jobs:
+  generuj:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+
+      - name: Przygotuj Pythona
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Wygeneruj feedy
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+        run: python generator/generuj.py
+
+      - name: Zapisz raport nawet przy zatrzymaniu
+        if: always()
+        run: |
+          git config user.name "generator-feedow"
+          git config user.email "generator-feedow@users.noreply.github.com"
+          git add feedy raporty
+          if git diff --cached --quiet; then
+            echo "Bez zmian – nic do zapisania."
+          else
+            git commit -m "Feedy zaktualizowane automatycznie ($(date -u +'%Y-%m-%d %H:%M') UTC)"
+            git push
+          fi
