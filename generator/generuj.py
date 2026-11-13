@@ -12,7 +12,6 @@ Uruchamia go automatycznie GitHub (plik .github/workflows/generuj-feedy.yml).
 Ręcznie (dla zaawansowanych):  python generator/generuj.py
 Test bez Shopify (na zapisanych danych):  python generator/generuj.py --dane-z-pliku plik.json
 """
-import csv
 import datetime
 import json
 import os
@@ -84,10 +83,12 @@ def main():
             continue
 
         os.makedirs(FEEDY, exist_ok=True)
+        # Format TSV dla Google: jedna oferta = jedna linia, kolumny oddzielone tabulatorem,
+        # bez cudzysłowów. Dlatego entery i tabulatory w tekstach zamieniamy na spacje.
         with open(sciezka, "w", encoding="utf-8", newline="") as f:
-            zapis = csv.writer(f, delimiter="\t", lineterminator="\n", quoting=csv.QUOTE_MINIMAL)
-            zapis.writerow(KOLUMNY_GOOGLE)
-            zapis.writerows([[k.replace("\t", " ").replace("\r", "") for k in w] for w in wiersze])
+            f.write("\t".join(KOLUMNY_GOOGLE) + "\n")
+            for w in wiersze:
+                f.write("\t".join(" ".join(k.split()) for k in w) + "\n")
         linie.append(f"| {feed['feed_id']} | {len(wiersze)} | {poprzednio if poprzednio is not None else '–'} | ✅ zapisano feedy/{feed['feed_id']}.tsv |")
 
     linie += ["", "## Ostrzeżenia", ""]
