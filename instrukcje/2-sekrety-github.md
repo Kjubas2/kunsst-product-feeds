@@ -5,7 +5,7 @@ Sekrety to sejf: GitHub przechowuje w nim dane dostępowe do Shopify, nikt ich n
 
 ## Co zrobić
 
-1. Otwórz repozytorium `kunsst-feeds` na github.com.
+1. Otwórz repozytorium `kunsst-producs-feeds` na github.com.
 2. **Settings** (zakładka u góry) → po lewej **Secrets and variables** → **Actions**.
 3. Kliknij **New repository secret** i dodaj dwa sekrety:
 

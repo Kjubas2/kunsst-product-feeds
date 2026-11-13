@@ -6,7 +6,7 @@ Merchant Center musi móc **pobrać plik feedu z internetu**, bez logowania.
 
 | Opcja | Jak działa | Plusy | Minusy |
 |---|---|---|---|
-| **A. Repozytorium publiczne** | Plik dostępny pod adresem `https://raw.githubusercontent.com/Kjubas2/kunsst-feeds/main/feedy/EN_EUR.tsv` | Najprościej, zero dodatkowych kont | Każdy, kto zna adres, zobaczy pliki repozytorium (ceny i opisy i tak są publiczne na stronie; dane dostępowe zostają w sejfie) |
+| **A. Repozytorium publiczne** | Plik dostępny pod adresem `https://raw.githubusercontent.com/Kjubas2/kunsst-producs-feeds/main/feedy/EN_EUR.tsv` | Najprościej, zero dodatkowych kont | Każdy, kto zna adres, zobaczy pliki repozytorium (ceny i opisy i tak są publiczne na stronie; dane dostępowe zostają w sejfie) |
 | **B. Repozytorium prywatne + osobne publiczne tylko na feedy** | Generator kopiuje same pliki feedów do drugiego, publicznego repozytorium | Ustawienia i program zostają prywatne | Jedno repozytorium więcej |
 
 Decyzję podejmujesz Ty – Claude nie upublicznia niczego bez Twojej zgody.
