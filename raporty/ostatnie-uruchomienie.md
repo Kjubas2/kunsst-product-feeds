@@ -1,12 +1,12 @@
-# Ostatnie uruchomienie generatora: 2026-11-17 02:32 (czas polski zimowy)
+# Ostatnie uruchomienie generatora: 2026-11-17 08:38 (czas polski zimowy)
 
 Produktów pobranych ze Shopify: **10**
 
 | Feed | Ofert teraz | Ofert poprzednio | Wynik |
 |---|---|---|---|
-| PL_PLN | 195 | 126 | ✅ zapisano feedy/PL_PLN.tsv |
-| DE_EUR | 195 | 126 | ✅ zapisano feedy/DE_EUR.tsv |
-| EN_EUR | 195 | 126 | ✅ zapisano feedy/EN_EUR.tsv |
+| PL_PLN | 195 | 195 | ✅ zapisano feedy/PL_PLN.tsv |
+| DE_EUR | 195 | 195 | ✅ zapisano feedy/DE_EUR.tsv |
+| EN_EUR | 195 | 195 | ✅ zapisano feedy/EN_EUR.tsv |
 
 ## Ostrzeżenia
 
