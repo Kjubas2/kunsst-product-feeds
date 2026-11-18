@@ -1,59 +1,73 @@
-# Ostatnie uruchomienie generatora: 2026-11-18 08:39 (czas polski zimowy)
+# Ostatnie uruchomienie generatora: 2026-11-18 15:49 (czas polski zimowy)
 
-Produktów pobranych ze Shopify: **10**
+Pobrano ze Shopify: **10 produktów, 490 wariantów**.
 
-| Feed | Ofert teraz | Ofert poprzednio | Wynik |
-|---|---|---|---|
-| PL_PLN | 344 | 344 | ✅ zapisano feedy/PL_PLN.tsv |
-| DE_EUR | 344 | 344 | ✅ zapisano feedy/DE_EUR.tsv |
-| EN_EUR | 344 | 344 | ✅ zapisano feedy/EN_EUR.tsv |
+| Feed | Profil | Ofert w pliku | Poprzednio | Pominięte warianty | Wynik |
+|---|---|---|---|---|---|
+| PL_PLN | google | 120 | – | 370 | ✅ zapisano feedy/PL_PLN.tsv |
+| DE_EUR | google | 120 | – | 370 | ✅ zapisano feedy/DE_EUR.tsv |
+| EN_EUR | google | 120 | – | 370 | ✅ zapisano feedy/EN_EUR.tsv |
+| DE_CHF | google | 120 | – | 370 | ✅ zapisano feedy/DE_CHF.tsv |
+
+## Dlaczego część wariantów nie trafiła do feedu
+
+- **PL_PLN**: brak zdjęcia dla kombinacji: 339, wariant „inny kolor – na zamówienie”: 31
+- **DE_EUR**: brak zdjęcia dla kombinacji: 339, wariant „inny kolor – na zamówienie”: 31
+- **EN_EUR**: brak zdjęcia dla kombinacji: 339, wariant „inny kolor – na zamówienie”: 31
+- **DE_CHF**: brak zdjęcia dla kombinacji: 339, wariant „inny kolor – na zamówienie”: 31
+
+## Kombinacje bez zdjęcia (przypisz zdjęcie do wariantu w Shopify, a oferty pojawią się same)
+
+- Solid wood coffee table with shelf – minimalist design: Arabica
+- Solid wood coffee table with shelf – minimalist design: Chocolate
+- Solid wood coffee table with shelf – minimalist design: Dark Roast
+- Solid wood coffee table with shelf – minimalist design: Golden Hour
+- Solid wood coffee table with shelf – minimalist design: Solid Black
+- Solid wood desk with drawer: Ash wood / Arabica
+- Solid wood desk with drawer: Ash wood / Charcoal
+- Solid wood desk with drawer: Ash wood / Chocolate
+- Solid wood desk with drawer: Ash wood / Dark Roast
+- Solid wood desk with drawer: Ash wood / Golden Hour
+- Solid wood desk with drawer: Ash wood / Natural
+- Solid wood desk with drawer: Ash wood / Solid Black
+- Solid wood desk with drawer: Beech wood / Arabica
+- Solid wood desk with drawer: Beech wood / Charcoal
+- Solid wood desk with drawer: Beech wood / Chocolate
+- Solid wood desk with drawer: Beech wood / Dark Roast
+- Solid wood desk with drawer: Beech wood / Golden Hour
+- Solid wood desk with drawer: Beech wood / Natural
+- Solid wood desk with drawer: Beech wood / Solid Black
+- Solid wood desk with drawer: Oak wood / Arabica
+- Solid wood desk with drawer: Oak wood / Charcoal
+- Solid wood desk with drawer: Oak wood / Chocolate
+- Solid wood desk with drawer: Oak wood / Dark Roast
+- Solid wood desk with drawer: Oak wood / Golden Hour
+- Solid wood desk with drawer: Oak wood / Solid Black
+- Spacious oak cabinet for vinyl record collection: 3 Doors / Natural Oak - Standard
+- Turntable & vinyl record storage cabinet: None / Natural - Standard
+- Wooden audio rack for amplifier & turntable: Ash wood / Arabica
+- Wooden audio rack for amplifier & turntable: Ash wood / Charcoal
+- Wooden audio rack for amplifier & turntable: Ash wood / Chocolate
+- Wooden audio rack for amplifier & turntable: Ash wood / Dark Roast
+- Wooden audio rack for amplifier & turntable: Ash wood / Golden Hour
+- Wooden audio rack for amplifier & turntable: Ash wood / Natural
+- Wooden audio rack for amplifier & turntable: Ash wood / Solid Black
+- Wooden audio rack for amplifier & turntable: Beech wood / Arabica
+- Wooden audio rack for amplifier & turntable: Beech wood / Charcoal
+- Wooden audio rack for amplifier & turntable: Beech wood / Chocolate
+- Wooden audio rack for amplifier & turntable: Beech wood / Dark Roast
+- Wooden audio rack for amplifier & turntable: Beech wood / Golden Hour
+- Wooden audio rack for amplifier & turntable: Beech wood / Natural
+- Wooden audio rack for amplifier & turntable: Beech wood / Solid Black
+- Wooden audio rack for amplifier & turntable: Oak wood / Arabica
+- Wooden audio rack for amplifier & turntable: Oak wood / Charcoal
+- Wooden audio rack for amplifier & turntable: Oak wood / Chocolate
+- Wooden audio rack for amplifier & turntable: Oak wood / Dark Roast
+- Wooden audio rack for amplifier & turntable: Oak wood / Golden Hour
+- Wooden audio rack for amplifier & turntable: Oak wood / Solid Black
+- Wooden audio rack for amplifier & turntable: Walnut wood / Natural
 
 ## Ostrzeżenia
 
-- Brak w Słowniku: opcja „Material” = „Oak wood” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Natural” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Golden Hour” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Dark Roast” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Chocolate” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Arabica” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Charcoal” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Solid Black” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Ash wood” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Beech wood” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Oak wood” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Natural” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Golden Hour” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Dark Roast” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Chocolate” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Arabica” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Charcoal” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Solid Black” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Ash wood” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Beech wood” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Length” = „130 cm” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „1 column · 3 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Oak wood” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Natural” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „1 column · 3 shelves (long) · 100 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „1 column · 2 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „1 column · 2 shelves (long) · 100 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „1 column · 1 shelf · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „2 columns · 3 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „2 columns · 2 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „3 columns · 3 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Configuration” = „3 columns · 2 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Golden Hour” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Dark Roast” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Chocolate” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Arabica” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Charcoal” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Solid Black” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Ash wood” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Beech wood” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Walnut wood” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Natural” (solid-wood-coffee-table-minimalist). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Dark Roast” (solid-wood-coffee-table-minimalist). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Golden Hour” (solid-wood-coffee-table-minimalist). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Chocolate” (solid-wood-coffee-table-minimalist). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Arabica” (solid-wood-coffee-table-minimalist). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Color” = „Solid Black” (solid-wood-coffee-table-minimalist). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak tłumaczenia PL w Shopify: Length = „130 cm” (small-oak-desk-with-drawer). Użyto nazwy angielskiej.
+- Brak tłumaczenia DE w Shopify: Length = „130 cm” (small-oak-desk-with-drawer). Użyto nazwy angielskiej.
