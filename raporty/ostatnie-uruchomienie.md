@@ -1,12 +1,12 @@
-# Ostatnie uruchomienie generatora: 2026-11-18 14:33 (czas polski zimowy)
+# Ostatnie uruchomienie generatora: 2026-11-18 20:16 (czas polski zimowy)
 
 Produktów pobranych ze Shopify: **10**
 
 | Feed | Ofert teraz | Ofert poprzednio | Wynik |
 |---|---|---|---|
-| PL_PLN | 344 | 344 | ✅ zapisano feedy/PL_PLN.tsv |
-| DE_EUR | 344 | 344 | ✅ zapisano feedy/DE_EUR.tsv |
-| EN_EUR | 344 | 344 | ✅ zapisano feedy/EN_EUR.tsv |
+| PL_PLN | 374 | 344 | ✅ zapisano feedy/PL_PLN.tsv |
+| DE_EUR | 374 | 344 | ✅ zapisano feedy/DE_EUR.tsv |
+| EN_EUR | 374 | 344 | ✅ zapisano feedy/EN_EUR.tsv |
 
 ## Ostrzeżenia
 
@@ -31,6 +31,16 @@ Produktów pobranych ze Shopify: **10**
 - Brak w Słowniku: opcja „Material” = „Ash wood” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Material” = „Beech wood” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Length” = „130 cm” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Doors” = „2 doors, open middle compartment” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Body material” = „Oak veneer” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Natural” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Golden Hour” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Dark Roast” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Chocolate” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Arabica” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Charcoal” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Color” = „Solid Black” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Doors” = „No doors (open compartments)” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Configuration” = „1 column · 3 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Material” = „Oak wood” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Color” = „Natural” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
