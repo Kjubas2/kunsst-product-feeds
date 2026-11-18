@@ -281,7 +281,11 @@ def zbuduj_oferty(feed, produkty_shopify, tl_opcji, U, ostrzezenia, statystyka):
                 if w and not w.endswith("?"):  # pytania to nie są cechy produktu
                     wyrozniki.append(w[:150])
         szczegoly = []
-        for linia in metapole(p, "wymiary", jezyk):
+        # Wymiary z metapola opisują wersję standardową. Gdy produkt ma warianty różniące się rozmiarem
+        # (Length, Configuration), nie dokładamy ich do ofert, bo byłyby błędne dla innych rozmiarów.
+        rozmiar_w_wariantach = any(norm((U["opcje"].get(norm(o["name"])) or {}).get("atrybut_google")) == "size"
+                                   and len(o["optionValues"]) > 1 for o in p["options"])
+        for linia in ([] if rozmiar_w_wariantach else metapole(p, "wymiary", jezyk)):
             if ":" not in linia or re.search(r"contact|kontakt|skontaktuj", linia, re.I):
                 continue
             a, b = (oczysc(x) for x in linia.split(":", 1))

@@ -1,9 +1,10 @@
 # KUNSST – generator feedów produktowych
 
 To repozytorium samo tworzy feedy produktowe (listy produktów dla Google Merchant Center,
-a później także dla ChatGPT i innych kanałów) z danych sklepu **kunsst.com** w Shopify.
+a później także dla innych platform) z danych sklepu **kunsst.com** w Shopify.
 
 **Nic tu nie trzeba klikać na co dzień.** Feedy odświeżają się same co 6 godzin.
+Dokładne zasady działania krok po kroku: [`instrukcje/4-jak-dziala-generator.md`](instrukcje/4-jak-dziala-generator.md).
 
 ---
 
@@ -11,29 +12,21 @@ a później także dla ChatGPT i innych kanałów) z danych sklepu **kunsst.com*
 
 | Folder / plik | Co zawiera | Czy edytujesz? |
 |---|---|---|
-| 📁 `ustawienia/` | Ustawienia feedów – te same zakładki co w arkuszu „KUNSST_feedy_panel” | ✅ **Tak – tylko tutaj** |
-| ├ `feedy.csv` | Lista feedów: język, waluta, kraje, szablon linku i tytułu. Kolumna `aktywny` = TAK/NIE | ✅ |
-| ├ `produkty.csv` | Ustawienia per produkt: własny tytuł, typ produktu, materiał, kolor, czas realizacji, etykiety | ✅ |
-| ├ `slownik.csv` | Tłumaczenie wariantów z Shopify na kolor/rozmiar/materiał i fragmenty tytułu | ✅ |
-| └ `ustawienia.csv` | Ustawienia wspólne: domena, marka, bezpieczniki | rzadko |
-| 📁 `feedy/` | **Gotowe pliki dla Google** (`PL_PLN.tsv`, `DE_EUR.tsv`…). Tworzone automatycznie | ❌ Nie |
-| 📁 `raporty/` | `ostatnie-uruchomienie.md` – ile ofert, czy były problemy | ❌ Tylko czytasz |
-| 📁 `instrukcje/` | Instrukcje krok po kroku (klucz Shopify, sekrety, podpięcie do Merchant Center) | czytasz |
+| 📁 `ustawienia/` | **Panel sterowania** – te same zakładki, które trafią do arkusza Google | ✅ **Tak – tylko tutaj** |
+| ├ `feedy.csv` | Lista feedów: platforma (profil), język, waluta, kraje, szablon linku i tytułu. `aktywny` = TAK/NIE | ✅ |
+| ├ `produkty.csv` | Ustawienia per produkt: własny tytuł, kategoria Google, typ, etykiety, wykluczenie | ✅ |
+| ├ `opcje.csv` | Rola każdej opcji wariantu (Color → kolor, Material → materiał, Length → rozmiar…) | rzadko |
+| ├ `slownik.csv` | Wyjątki: gdy nazwa ze Shopify nie pasuje do feedu (np. „130 cm - Standard” → „130 cm”) | ✅ |
+| ├ `ustawienia.csv` | Ustawienia wspólne: domena, marka, bezpieczniki, co robić z wariantami bez zdjęcia | rzadko |
+| └ 📁 `profile/` | Układ kolumn pliku dla każdej platformy (`google.csv`; kolejne platformy później) | rzadko |
+| 📁 `feedy/` | **Gotowe pliki** (`PL_PLN.tsv`, `DE_EUR.tsv`, `DE_CHF.tsv`…). Tworzone automatycznie | ❌ Nie |
+| 📁 `raporty/` | `ostatnie-uruchomienie.md` – ile ofert, co pominięto i dlaczego, czego brakuje | ❌ Tylko czytasz |
+| 📁 `instrukcje/` | Instrukcje krok po kroku | czytasz |
 | 📁 `generator/` | Program, który robi całą pracę | ❌ Nie |
 | 📁 `.github/workflows/` | Harmonogram (co 6 h) | ❌ Nie |
 
-> Docelowo ustawienia będą czytane prosto z arkusza Google. Do tego czasu edytujesz pliki
-> w folderze `ustawienia/` (kliknij plik → ikona ołówka → „Commit changes”).
-
----
-
-## Jak to działa (w 5 krokach)
-
-1. GitHub co 6 godzin uruchamia generator (albo od razu po zmianie w `ustawienia/`).
-2. Generator czyta produkty ze Shopify – **tylko odczyt**, niczego w sklepie nie zmienia.
-3. Dla każdego feedu z `aktywny = TAK` buduje plik w `feedy/`.
-4. **Bezpieczniki:** jeśli ofert jest podejrzanie mało, stary plik zostaje, a Ty dostajesz e-mail.
-5. Merchant Center codziennie pobiera pliki z `feedy/` pod stałym adresem.
+> Docelowo zakładki z `ustawienia/` będą czytane prosto z arkusza Google. Do tego czasu
+> edytujesz pliki w przeglądarce (kliknij plik → ikona ołówka → „Commit changes”).
 
 ---
 
@@ -41,11 +34,13 @@ a później także dla ChatGPT i innych kanałów) z danych sklepu **kunsst.com*
 
 | Sytuacja | Co zrobić |
 |---|---|
-| Zmieniłem cenę / opis / zdjęcie w Shopify | Nic. Feed zaktualizuje się sam w ciągu 6 h |
-| Dodałem nowy produkt | Nic – trafi do feedu automatycznie. Dla porządku dopisz go w `produkty.csv` |
-| Dodałem nowy wariant (np. nowy kolor) | Dopisz wiersz w `slownik.csv` (raport pokaże, czego brakuje) |
-| Chcę wyłączyć produkt z feedu | `produkty.csv` → kolumna `w_feedzie` = NIE |
-| Chcę nowy feed (np. francuski) | `feedy.csv` → zmień `aktywny` na TAK |
+| Zmieniłem cenę / opis / zdjęcie / tłumaczenie w Shopify | Nic. Feed zaktualizuje się sam w ciągu 6 h |
+| Przypisałem zdjęcie do wariantu (np. jesion + czarny) | Nic. Te warianty same pojawią się w feedzie |
+| Dodałem nowy kolor do palety | Nic, jeśli kolor ma tłumaczenie PL/DE w Shopify. Dla feedu angielskiego dopisz zwykłą nazwę w `slownik.csv` |
+| Dodałem nowy produkt | Trafi do feedu sam. Dopisz go w `produkty.csv` (kategoria Google, etykiety) |
+| Dodałem nową opcję wariantu (np. „Uchwyt”) | Dopisz ją w `opcje.csv` (raport przypomni) |
+| Chcę wyłączyć produkt z feedu | `produkty.csv` → `w_feedzie` = NIE |
+| Chcę nowy feed (np. francuski) | `feedy.csv` → `aktywny` = TAK |
 | Chcę wygenerować feedy teraz | Zakładka **Actions** → „Generuj feedy” → **Run workflow** |
 | Przyszedł e-mail „Run failed” | Otwórz `raporty/ostatnie-uruchomienie.md` – tam jest powód |
 
