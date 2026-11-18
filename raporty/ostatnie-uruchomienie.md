@@ -1,13 +1,13 @@
-# Ostatnie uruchomienie generatora: 2026-11-18 15:49 (czas polski zimowy)
+# Ostatnie uruchomienie generatora: 2026-11-18 15:51 (czas polski zimowy)
 
 Pobrano ze Shopify: **10 produktów, 490 wariantów**.
 
 | Feed | Profil | Ofert w pliku | Poprzednio | Pominięte warianty | Wynik |
 |---|---|---|---|---|---|
-| PL_PLN | google | 120 | – | 370 | ✅ zapisano feedy/PL_PLN.tsv |
-| DE_EUR | google | 120 | – | 370 | ✅ zapisano feedy/DE_EUR.tsv |
-| EN_EUR | google | 120 | – | 370 | ✅ zapisano feedy/EN_EUR.tsv |
-| DE_CHF | google | 120 | – | 370 | ✅ zapisano feedy/DE_CHF.tsv |
+| PL_PLN | google | 120 | 120 | 370 | ✅ zapisano feedy/PL_PLN.tsv |
+| DE_EUR | google | 120 | 120 | 370 | ✅ zapisano feedy/DE_EUR.tsv |
+| EN_EUR | google | 120 | 120 | 370 | ✅ zapisano feedy/EN_EUR.tsv |
+| DE_CHF | google | 120 | 120 | 370 | ✅ zapisano feedy/DE_CHF.tsv |
 
 ## Dlaczego część wariantów nie trafiła do feedu
 
@@ -69,5 +69,4 @@ Pobrano ze Shopify: **10 produktów, 490 wariantów**.
 
 ## Ostrzeżenia
 
-- Brak tłumaczenia PL w Shopify: Length = „130 cm” (small-oak-desk-with-drawer). Użyto nazwy angielskiej.
-- Brak tłumaczenia DE w Shopify: Length = „130 cm” (small-oak-desk-with-drawer). Użyto nazwy angielskiej.
+Brak – wszystko w porządku.
