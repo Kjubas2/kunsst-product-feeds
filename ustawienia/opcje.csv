@@ -1,0 +1,12 @@
+opcja_w_shopify,atrybut_google,w_tytule,kolejność_w_tytule,przedrostek_PL,przedrostek_DE,przedrostek_EN,rozróżnia_zdjęcia,etykieta,uwagi
+Material,material,TAK,1,,,,TAK,gatunek,"gatunek drewna (biurka, stolik audio)"
+Body Material,material,TAK,1,,,,NIE,gatunek,korpus szafki: fornir / lity dąb
+Color,color,TAK,2,kolor ,,,TAK,wykończenie,paleta kolorów
+Body Color,color,TAK,2,,,,TAK,wykończenie,stare szafki
+Length,size,TAK,3,,,,NIE,,długość biurka / szafki
+Configuration,size,TAK,3,,,,NIE,,konfiguracja stolika audio
+Doors,,TAK,4,,,,TAK,,drzwi szafek – inne zdjęcia dla wariantów
+Door color,,TAK,4,,,,TAK,,
+Front color,,TAK,4,,,,TAK,,
+Door opening,,TAK,5,,,,NIE,,
+Doors opening,,TAK,5,,,,NIE,,

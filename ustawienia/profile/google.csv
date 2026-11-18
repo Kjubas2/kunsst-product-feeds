@@ -1,0 +1,41 @@
+kolumna,źródło,opis
+id,{id},Stały identyfikator oferty – nie zmieniać (historia w Google)
+item_group_id,{id_grupy},Łączy warianty jednego produktu
+title,{tytul},Tytuł: nazwa produktu + cechy wariantu (szablon w zakładce Feedy)
+description,{opis},Opis produktu ze Shopify w języku feedu
+link,{link},Link do wariantu z UTM (bezpłatne wyniki)
+ads_redirect,{link_reklamy},"Link dla reklam – bez UTM, działa auto-tagging Google Ads"
+image_link,{zdjecie},Zdjęcie pasujące do gatunku i koloru
+additional_image_link,{zdjecia_dodatkowe},Pozostałe zdjęcia (bez zdjęć innych kolorów)
+availability,{dostepnosc},
+price,{cena},Cena z cennika rynku Shopify
+sale_price,{cena_promocyjna},Tylko gdy w Shopify jest cena porównawcza
+brand,{marka},
+mpn,{mpn},SKU wariantu
+identifier_exists,{identyfikator_istnieje},no – produkty bez kodu EAN/GTIN
+condition,{stan},
+google_product_category,{kategoria_google},
+product_type,{typ_produktu},
+color,{kolor},Zwykła nazwa koloru w języku feedu
+size,{rozmiar},Długość / konfiguracja
+material,{material},Gatunek drewna
+product_highlight,{wyroznik_1},
+product_highlight,{wyroznik_2},
+product_highlight,{wyroznik_3},
+product_highlight,{wyroznik_4},
+product_highlight,{wyroznik_5},
+product_highlight,{wyroznik_6},
+product_detail,{szczegol_1},
+product_detail,{szczegol_2},
+product_detail,{szczegol_3},
+product_detail,{szczegol_4},
+product_detail,{szczegol_5},
+product_detail,{szczegol_6},
+shipping_weight,{waga},
+min_handling_time,{dni_min},Czas realizacji (dni robocze) z metapola lead_time
+max_handling_time,{dni_max},
+custom_label_0,{linia},Etykieta: linia produktów (audio / home)
+custom_label_1,{kategoria},Etykieta: kategoria
+custom_label_2,{gatunek},Etykieta: gatunek drewna (automatycznie)
+custom_label_3,{wykonczenie},Etykieta: natural / stained (automatycznie)
+custom_label_4,{priorytet},Etykieta: priorytet z zakładki Produkty

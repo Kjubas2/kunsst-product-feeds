@@ -6,10 +6,7 @@ Stan (condition),new,
 Separator w tytule,–,Między tytułem produktu a cechami wariantu
 Bezpiecznik: min. liczba ofert w feedzie,50,"Jeśli mniej – stary feed zostaje, wysyłany jest alert"
 Bezpiecznik: maks. spadek liczby ofert,30%,Względem poprzedniego uruchomienia
-custom_label_0,linia produktów,audio / home
-custom_label_1,kategoria,desks / coffee-tables / audio-racks / vinyl-cabinets
-custom_label_2,marża,high / mid / low
-custom_label_3,bestseller,bestseller / puste
-custom_label_4,typ wariantu,standard / na_zamowienie (automatycznie ze Słownika)
+Warianty na zamówienie (inny kolor),POMIŃ,POMIŃ albo POKAŻ. Warianty „inny kolor – na zamówienie” nie mają koloru ani zdjęcia
+Warianty bez pasującego zdjęcia,POMIŃ,POMIŃ albo POKAŻ (ze zdjęciem głównym). Lista brakujących kombinacji jest w raporcie
 Wersja API Shopify,2026-10,Nie zmieniać bez potrzeby
 Adres sklepu (myshopify),518761-3e.myshopify.com,Techniczny adres sklepu – z niego generator pobiera dane

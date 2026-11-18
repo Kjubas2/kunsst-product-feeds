@@ -1,8 +1,15 @@
 """
-Budowanie wierszy feedu z danych Shopify i ustawień z folderu ustawienia/.
+Budowanie ofert z danych Shopify i ustawień z folderu ustawienia/.
 
-Zasada: treść produktu pochodzi z Shopify, a ustawienia (zakładki arkusza)
-mówią tylko, jak ją ułożyć dla danego kanału, języka i waluty.
+Zasada: treść produktu pochodzi z Shopify (także tłumaczenia nazw kolorów,
+gatunków i konfiguracji), a ustawienia mówią tylko, jak ją ułożyć dla danego
+feedu. Słownik służy wyłącznie do nadpisań – tam, gdzie wartość ze Shopify
+nie pasuje do feedu (np. „130 cm - Standard” → „130 cm”).
+
+Wynik tego pliku to lista ofert w jednym, wspólnym kształcie (słownik pól,
+np. oferta["tytul"], oferta["kolor"]). Dopiero profil platformy
+(ustawienia/profile/<profil>.csv) decyduje, w jakich kolumnach te pola trafią
+do pliku – dzięki temu kolejne platformy nie wymagają przepisywania tego kodu.
 """
 import csv
 import html
@@ -10,6 +17,11 @@ import io
 import json
 import re
 import urllib.request
+
+KOLUMNY_JEZYKA = {"en": "EN", "de": "DE", "pl": "PL", "fr": "FR"}
+SEKCJA_WYMIARY = {"en": "Dimensions", "de": "Abmessungen", "pl": "Wymiary", "fr": "Dimensions"}
+ILE_WYROZNIKOW, ILE_SZCZEGOLOW, ILE_ZDJEC_DODATKOWYCH = 6, 6, 10
+
 
 # ---------------------------------------------------------------- ustawienia
 
@@ -24,18 +36,33 @@ def wczytaj_csv(sciezka_lub_url):
     return list(csv.DictReader(io.StringIO(tekst)))
 
 
+def norm(s):
+    return (s or "").strip().lower()
+
+
+def tak(s, domyslnie=False):
+    s = norm(s)
+    if not s:
+        return domyslnie
+    return s in ("tak", "yes", "1", "true")
+
+
 def wczytaj_ustawienia(folder):
-    ust = {r["Ustawienie"]: r["Wartość"] for r in wczytaj_csv(f"{folder}/ustawienia.csv")}
-    feedy = [r for r in wczytaj_csv(f"{folder}/feedy.csv") if r["aktywny"].strip().upper() == "TAK"]
-    produkty = {r["handle"].strip(): r for r in wczytaj_csv(f"{folder}/produkty.csv")}
-    slownik = {}
-    for r in wczytaj_csv(f"{folder}/slownik.csv"):
-        slownik[klucz(r["opcja_w_shopify"], r["wartość_w_shopify"])] = r
-    return ust, feedy, produkty, slownik
+    """Zwraca wszystkie zakładki panelu jako jeden słownik."""
+    return {
+        "ogolne": {r["Ustawienie"]: r["Wartość"] for r in wczytaj_csv(f"{folder}/ustawienia.csv")},
+        "feedy": [r for r in wczytaj_csv(f"{folder}/feedy.csv") if tak(r["aktywny"])],
+        "produkty": {r["handle"].strip(): r for r in wczytaj_csv(f"{folder}/produkty.csv")},
+        "opcje": {norm(r["opcja_w_shopify"]): r for r in wczytaj_csv(f"{folder}/opcje.csv")},
+        "slownik": {(norm(r["opcja_w_shopify"]), norm(r["wartość_w_shopify"])): r
+                    for r in wczytaj_csv(f"{folder}/slownik.csv")},
+    }
 
 
-def klucz(opcja, wartosc):
-    return (opcja.strip().lower(), wartosc.strip().lower())
+def wczytaj_profil(folder, nazwa):
+    """Profil platformy = lista kolumn pliku i źródło każdej z nich."""
+    return [(r["kolumna"].strip(), r["źródło"]) for r in wczytaj_csv(f"{folder}/profile/{nazwa}.csv")
+            if r["kolumna"].strip()]
 
 
 # ---------------------------------------------------------------- pomocnicze
@@ -116,47 +143,110 @@ def dni_realizacji(tekst):
     return liczby[0], liczby[1]
 
 
-def wypelnij(szablon, **wartosci):
-    for k, v in wartosci.items():
-        szablon = szablon.replace("{" + k + "}", str(v))
-    return szablon
+def wypelnij(szablon, wartosci):
+    """Podstawia {pole} w szablonie. Nieznane pola zostają puste."""
+    return re.sub(r"\{([^{}]+)\}", lambda m: str(wartosci.get(m.group(1).strip(), "") or ""), szablon or "")
 
 
-SEKCJA_WYMIARY = {"en": "Dimensions", "de": "Abmessungen", "pl": "Wymiary", "fr": "Dimensions"}
-KOLUMNY_JEZYKA = {"en": "EN", "de": "DE", "pl": "PL", "fr": "FR"}
-ILE_WYROZNIKOW, ILE_SZCZEGOLOW = 6, 6
-
-KOLUMNY_GOOGLE = (
-    ["id", "item_group_id", "title", "description", "link", "ads_redirect", "image_link",
-     "additional_image_link", "availability", "price", "sale_price", "brand", "mpn", "condition",
-     "google_product_category", "product_type", "color", "size", "material"]
-    + ["product_highlight"] * ILE_WYROZNIKOW
-    + ["product_detail"] * ILE_SZCZEGOLOW
-    + ["shipping_weight", "min_handling_time", "max_handling_time",
-       "custom_label_0", "custom_label_1", "custom_label_2", "custom_label_3", "custom_label_4"]
-)
+def z_malej(tekst, jezyk):
+    """'Jesion' -> 'jesion' w środku tytułu (PL, EN). Nazw własnych typu 'Golden Hour' nie rusza."""
+    if jezyk not in ("pl", "en") or not tekst:
+        return tekst
+    reszta = tekst[1:]
+    if any(ch.isupper() for ch in reszta):
+        return tekst
+    return tekst[0].lower() + reszta
 
 
-# ---------------------------------------------------------------- feed Google
+def obraz(media):
+    nodes = (media or {}).get("nodes") or []
+    for m in nodes:
+        if m and m.get("image"):
+            return m["id"], m["image"]["url"]
+    return None, None
 
-def zbuduj_feed(feed, produkty_shopify, ust, ustawienia_produktow, slownik, ostrzezenia):
-    """Zwraca listę wierszy (każdy = jedna oferta = jeden wariant) dla jednego feedu."""
-    jezyk = feed["język"].strip().lower()
+
+# ---------------------------------------------------------------- opcje wariantu
+
+def opisz_opcje(p, v, jezyk, J, U, tl_opcji, ostrzezenia):
+    """Dla jednego wariantu zwraca listę opcji z wartościami w języku feedu."""
+    id_wartosci = {(o["name"], w["name"]): w["id"] for o in p["options"] for w in o["optionValues"]}
+    wynik = []
+    for so in v["selectedOptions"]:
+        nazwa, wartosc = so["name"], so["value"]
+        if norm(nazwa) == "title":
+            continue  # produkt bez wariantów
+        definicja = U["opcje"].get(norm(nazwa))
+        if definicja is None:
+            ostrzezenia.append(f"Opcja „{nazwa.strip()}” nie ma wiersza w zakładce Opcje ({p['handle']}) – "
+                               "trafi tylko do tytułu. Dopisz ją, żeby ustalić jej rolę.")
+            definicja = {}
+        wpis = U["slownik"].get((norm(nazwa), norm(wartosc))) or {}
+
+        # Nazwa w języku feedu: tłumaczenie ze Shopify, a gdy go brak – nazwa ze Shopify
+        ze_shopify = wartosc
+        if jezyk != "en":
+            ze_shopify = (tl_opcji.get(id_wartosci.get((nazwa, wartosc)), {}) or {}).get(jezyk) or ""
+            if not ze_shopify and not wpis.get(f"wartość_{J}") and not wpis.get(f"fragment_tytułu_{J}"):
+                ostrzezenia.append(f"Brak tłumaczenia {jezyk.upper()} w Shopify: {nazwa.strip()} = „{wartosc}” "
+                                   f"({p['handle']}). Użyto nazwy angielskiej.")
+            ze_shopify = ze_shopify or wartosc
+
+        # Atrybut Google (color/material/size): 1) Słownik  2) Shopify
+        tekst = (wpis.get(f"wartość_{J}") or "").strip() or ze_shopify
+
+        # Fragment tytułu: 1) Słownik („-” = pomiń)  2) przedrostek z zakładki Opcje + nazwa ze Shopify
+        fragment = (wpis.get(f"fragment_tytułu_{J}") or "").strip()
+        if fragment == "-":
+            fragment = ""
+        elif not fragment:
+            fragment = (definicja.get(f"przedrostek_{J}") or "") + z_malej(ze_shopify, jezyk)
+
+        wynik.append({
+            "nazwa": nazwa.strip(),
+            "wartosc_shopify": wartosc,
+            "tekst": tekst,
+            "fragment": fragment if tak(definicja.get("w_tytule"), True) else "",
+            "kolejnosc": float(definicja.get("kolejność_w_tytule") or 9),
+            "atrybut": norm(definicja.get("atrybut_google")),
+            "do_zdjec": tak(definicja.get("rozróżnia_zdjęcia")),
+            "etykieta": norm(definicja.get("etykieta")),
+            "etykieta_wartosc": (wpis.get("etykieta") or "").strip(),
+            "na_zamowienie": norm(wpis.get("typ_wariantu")) == "na_zamowienie",
+        })
+    return wynik
+
+
+def klucz_zdjecia(v, opcje_zdjec):
+    return tuple(norm(so["value"]) for so in v["selectedOptions"] if norm(so["name"]) in opcje_zdjec)
+
+
+# ---------------------------------------------------------------- oferty
+
+def zbuduj_oferty(feed, produkty_shopify, tl_opcji, U, ostrzezenia, statystyka):
+    """Zwraca listę ofert (każda = jeden wariant) dla jednego feedu, w kształcie niezależnym od platformy."""
+    ust = U["ogolne"]
+    jezyk = norm(feed["język"])
     J = KOLUMNY_JEZYKA.get(jezyk, "EN")
     waluta = feed["waluta"].strip().upper()
     kraj = feed["kraj_cennika"].strip().upper()
     separator = f' {ust.get("Separator w tytule", "–").strip()} '
-    wiersze = []
+    pomijaj_zamowienia = norm(ust.get("Warianty na zamówienie (inny kolor)", "POMIŃ")) != "pokaż"
+    pomijaj_bez_zdjec = norm(ust.get("Warianty bez pasującego zdjęcia", "POMIŃ")) != "pokaż"
+    opcje_zdjec = {k for k, d in U["opcje"].items() if tak(d.get("rozróżnia_zdjęcia"))}
+    oferty = []
 
     for p in produkty_shopify:
         if not p.get("onlineStoreUrl"):
-            continue  # produkt nieopublikowany w sklepie internetowym
+            statystyka["produkt nieopublikowany"] += len(p["variants"]["nodes"])
+            continue
         handle_en = p["handle"]
-        up = ustawienia_produktow.get(handle_en)
+        up = U["produkty"].get(handle_en)
         if up is None:
             ostrzezenia.append(f"Nowy produkt bez wiersza w zakładce Produkty: {handle_en} – użyto ustawień domyślnych.")
             up = {}
-        if up.get("w_feedzie", "TAK").strip().upper() == "NIE":
+        if norm(up.get("w_feedzie")) == "nie":
+            statystyka["produkt wyłączony w panelu"] += len(p["variants"]["nodes"])
             continue
 
         pid = p["id"].split("/")[-1]
@@ -164,10 +254,28 @@ def zbuduj_feed(feed, produkty_shopify, ust, ustawienia_produktow, slownik, ostr
         tytul_produktu = (up.get(f"tytuł_{J} (nadpisanie)") or "").strip() \
             or tlumaczenie(p, jezyk, "title") or p["title"]
         opis = bez_html(tlumaczenie(p, jezyk, "body_html") or p["descriptionHtml"])
-        zdjecia = [m["image"]["url"] for m in p["media"]["nodes"] if m and m.get("image")]
 
+        # --- zdjęcia: które pasują do jakiej kombinacji gatunek/kolor/drzwi
+        warianty = p["variants"]["nodes"]
+        zdjecia_produktu = [(m["id"], m["image"]["url"]) for m in p["media"]["nodes"] if m and m.get("image")]
+        zdjecie_kombinacji, zdjecia_cudze = {}, {}
+        for v in warianty:
+            mid, url = obraz(v.get("media"))
+            if url:
+                k = klucz_zdjecia(v, opcje_zdjec)
+                zdjecie_kombinacji.setdefault(k, (mid, url))
+                zdjecia_cudze.setdefault(mid, set()).add(k)
+        glowna = (up.get("zdjęcie_główne_pokazuje") or "").strip()
+        klucz_glowny = tuple(norm(x) for x in glowna.split("/")) if glowna else \
+            (klucz_zdjecia(warianty[0], opcje_zdjec) if warianty else ())
+        if zdjecia_produktu and zdjecia_produktu[0][0] not in zdjecia_cudze:
+            # zdjęcie główne pokazuje kombinację z zdjęcie_główne_pokazuje (domyślnie: pierwszy wariant),
+            # więc nie dokładamy go jako dodatkowego do innych kolorów
+            zdjecia_cudze[zdjecia_produktu[0][0]] = {klucz_glowny}
+
+        # --- treści wspólne dla wszystkich wariantów produktu
         wyrozniki = []
-        if up.get("wyróżniki_z_shopify", "TAK").strip().upper() != "NIE":
+        if tak(up.get("wyróżniki_z_shopify"), True):
             for w in metapole(p, "wyrozniki", jezyk):
                 w = oczysc(w)
                 if w and not w.endswith("?"):  # pytania to nie są cechy produktu
@@ -179,84 +287,124 @@ def zbuduj_feed(feed, produkty_shopify, ust, ustawienia_produktow, slownik, ostr
             a, b = (oczysc(x) for x in linia.split(":", 1))
             if a and b:
                 szczegoly.append(f"{SEKCJA_WYMIARY.get(jezyk, 'Dimensions')}:{a}:{b}")
-
         dmin, dmax = up.get("min_dni_realizacji", ""), up.get("max_dni_realizacji", "")
         if not str(dmin).strip() or not str(dmax).strip():
             dmin, dmax = dni_realizacji((p.get("czas_realizacji") or {}).get("value", ""))
 
-        for v in p["variants"]["nodes"]:
+        for v in warianty:
             vid = v["id"].split("/")[-1]
-            kolor = up.get(f"kolor_domyślny_{J}", "")
-            material = up.get(f"materiał_{J}", "")
-            rozmiar, typ, fragmenty = "", "standard", []
-            for opcja in v["selectedOptions"]:
-                if opcja["name"].strip().lower() == "title":
-                    continue  # produkt bez wariantów
-                wpis = slownik.get(klucz(opcja["name"], opcja["value"]))
-                if wpis is None:
-                    ostrzezenia.append(
-                        f"Brak w Słowniku: opcja „{opcja['name']}” = „{opcja['value']}” ({handle_en}). "
-                        "W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.")
-                    fragmenty.append(opcja["value"])
+            opcje = opisz_opcje(p, v, jezyk, J, U, tl_opcji, ostrzezenia)
+
+            if pomijaj_zamowienia and any(o["na_zamowienie"] for o in opcje):
+                statystyka["wariant „inny kolor – na zamówienie”"] += 1
+                continue
+
+            atrybuty = {"color": "", "material": "", "size": ""}
+            etykiety = {"gatunek": "", "wykończenie": ""}
+            for o in opcje:
+                if o["atrybut"] in atrybuty and not atrybuty[o["atrybut"]]:
+                    atrybuty[o["atrybut"]] = o["tekst"]
+                if o["etykieta"] in etykiety and not etykiety[o["etykieta"]]:
+                    domyslna = o["wartosc_shopify"].split()[0].lower() if o["etykieta"] == "gatunek" else \
+                        ("natural" if norm(o["wartosc_shopify"]).startswith("natural") else "stained")
+                    etykiety[o["etykieta"]] = o["etykieta_wartosc"] or domyslna
+            atrybuty["material"] = atrybuty["material"] or (up.get(f"materiał_{J}") or "").strip()
+            etykiety["gatunek"] = etykiety["gatunek"] or (up.get("gatunek_domyślny") or "").strip()
+
+            # --- zdjęcie: wariantu → innego wariantu w tym samym gatunku/kolorze → główne (tylko dla kombinacji z głównego zdjęcia)
+            k = klucz_zdjecia(v, opcje_zdjec)
+            mid, url = obraz(v.get("media"))
+            if not url and k in zdjecie_kombinacji:
+                mid, url = zdjecie_kombinacji[k]
+            if not url and k == klucz_glowny and zdjecia_produktu:
+                mid, url = zdjecia_produktu[0]
+            if not url:
+                opis_kombinacji = " / ".join(so["value"] for so in v["selectedOptions"]
+                                             if norm(so["name"]) in opcje_zdjec) or "—"
+                statystyka["brak zdjęcia dla kombinacji"] += 1
+                statystyka.setdefault("_brakujace_zdjecia", set()).add(f"{p['title']}: {opis_kombinacji}")
+                if pomijaj_bez_zdjec:
                     continue
-                frag = (wpis.get(f"fragment_tytułu_{J}") or "").strip()
-                if frag:
-                    fragmenty.append(frag)
-                atrybut = (wpis.get("atrybut_google") or "").strip()
-                wartosc = (wpis.get(f"wartość_{J}") or "").strip()
-                if atrybut == "color":
-                    kolor = wartosc
-                elif atrybut == "size":
-                    rozmiar = wartosc
-                elif atrybut == "material":
-                    material = wartosc
-                if (wpis.get("typ_wariantu") or "").strip() == "na_zamowienie":
-                    typ = "na_zamowienie"
+                if zdjecia_produktu:
+                    mid, url = zdjecia_produktu[0]
+            dodatkowe = [u for (i, u) in zdjecia_produktu
+                         if u != url and (i not in zdjecia_cudze or k in zdjecia_cudze[i])][:ILE_ZDJEC_DODATKOWYCH]
 
-            if fragmenty:
-                tytul = wypelnij(feed["szablon_tytułu"], tytul_produktu=tytul_produktu,
-                                 cechy_wariantu=", ".join(fragmenty))
-            else:
-                tytul = tytul_produktu
-            tytul = tytul.replace(" – ", separator)[:150]
-
-            wspolne = dict(domena=ust["Domena sklepu"].rstrip("/"), prefiks_jezyka=feed["prefiks_języka"].strip(),
-                           handle=handle, id_wariantu=vid, waluta=waluta, feed_label=feed["feed_label"].strip())
-            link = wypelnij(feed["szablon_url"], **wspolne)
-            link_reklamy = wypelnij(feed["szablon_url_reklamy"], **wspolne) if feed.get("szablon_url_reklamy") else ""
-
-            zdj_wariantu = [m["image"]["url"] for m in v["media"]["nodes"] if m and m.get("image")]
-            glowne = zdj_wariantu[0] if zdj_wariantu else (zdjecia[0] if zdjecia else "")
-            dodatkowe = [u for u in zdjecia if u != glowne][:10]
-
+            # --- cena dla rynku
             c = v.get(f"cena_{kraj}")
             if not c:
+                statystyka["brak ceny"] += 1
                 ostrzezenia.append(f"Brak ceny dla kraju {kraj}: {handle_en} / {v['title']} – pominięto.")
                 continue
             if c["price"]["currencyCode"] != waluta:
+                statystyka["inna waluta niż w feedzie"] += 1
                 ostrzezenia.append(
                     f"Feed {feed['feed_id']}: Shopify podał cenę w {c['price']['currencyCode']} zamiast {waluta} "
                     f"dla kraju {kraj} – sprawdź walutę rynku. Pominięto {handle_en} / {v['title']}.")
                 continue
             cena, promocja = float(c["price"]["amount"]), ""
             stara = c.get("compareAtPrice")
-            if stara and float(stara["amount"]) > cena:
+            if stara and float(stara["amount"]) > cena:  # cena porównawcza 0 lub niższa = brak promocji
                 promocja = f"{cena:.2f} {waluta}"
                 cena = float(stara["amount"])
 
-            waga = (v.get("inventoryItem") or {}).get("measurement", {}).get("weight") or {}
-            waga_txt = f"{waga['value']:g} kg" if waga.get("value") else ""
+            # --- tytuł
+            fragmenty = [o["fragment"] for o in sorted(opcje, key=lambda o: o["kolejnosc"]) if o["fragment"]]
+            tytul = wypelnij(feed["szablon_tytułu"], {"tytul_produktu": tytul_produktu,
+                                                     "cechy_wariantu": ", ".join(fragmenty)}) \
+                if fragmenty else tytul_produktu
+            tytul = tytul.replace(" – ", separator).strip(" –")
 
-            wiersz = [
-                ust["Prefiks ID oferty"] + pid + "_" + vid, pid, tytul, opis, link, link_reklamy,
-                glowne, ",".join(dodatkowe), "in_stock" if v["availableForSale"] else "out_of_stock",
-                f"{cena:.2f} {waluta}", promocja, ust["Marka (brand)"],
-                ((v.get("mpn") or {}).get("value") or v.get("sku") or ""), ust.get("Stan (condition)", "new"),
-                up.get("google_product_category", ""), up.get("product_type", ""), kolor, rozmiar, material,
-            ]
-            wiersz += (wyrozniki + [""] * ILE_WYROZNIKOW)[:ILE_WYROZNIKOW]
-            wiersz += (szczegoly + [""] * ILE_SZCZEGOLOW)[:ILE_SZCZEGOLOW]
-            wiersz += [waga_txt, dmin, dmax, up.get("custom_label_0", ""), up.get("custom_label_1", ""),
-                       up.get("custom_label_2", ""), up.get("custom_label_3", ""), typ]
-            wiersze.append(["" if x is None else str(x) for x in wiersz])
-    return wiersze
+            wspolne = {"domena": ust["Domena sklepu"].rstrip("/"), "prefiks_jezyka": feed["prefiks_języka"].strip(),
+                       "handle": handle, "id_wariantu": vid, "waluta": waluta,
+                       "feed_label": feed["feed_label"].strip()}
+            waga = (v.get("inventoryItem") or {}).get("measurement", {}).get("weight") or {}
+            sku = (v.get("sku") or "").strip()
+            if not sku:
+                statystyka["wariant bez SKU (mpn puste)"] += 1
+
+            oferta = {
+                "id": ust["Prefiks ID oferty"] + pid + "_" + vid,
+                "id_grupy": pid,
+                "tytul": tytul,
+                "opis": opis,
+                "link": wypelnij(feed["szablon_url"], wspolne),
+                "link_reklamy": wypelnij(feed.get("szablon_url_reklamy", ""), wspolne),
+                "zdjecie": url or "",
+                "zdjecia_dodatkowe": ",".join(dodatkowe),
+                "dostepnosc": "in_stock" if v["availableForSale"] else "out_of_stock",
+                "cena": f"{cena:.2f} {waluta}",
+                "cena_kwota": f"{cena:.2f}",
+                "cena_promocyjna": promocja,
+                "waluta": waluta,
+                "marka": ust["Marka (brand)"],
+                "sku": sku,
+                "mpn": sku,
+                "identyfikator_istnieje": "no",
+                "stan": ust.get("Stan (condition)", "new"),
+                "kategoria_google": up.get("google_product_category", ""),
+                "typ_produktu": up.get("product_type", ""),
+                "kolor": atrybuty["color"],
+                "rozmiar": atrybuty["size"],
+                "material": atrybuty["material"],
+                "waga": f"{waga['value']:g} kg" if waga.get("value") else "",
+                "dni_min": dmin, "dni_max": dmax,
+                "linia": up.get("linia", ""),
+                "kategoria": up.get("kategoria", ""),
+                "gatunek": etykiety["gatunek"],
+                "wykonczenie": etykiety["wykończenie"],
+                "priorytet": up.get("priorytet", ""),
+                "jezyk": jezyk,
+                "kraje": feed.get("kraje_docelowe", ""),
+                "feed_label": feed["feed_label"].strip(),
+            }
+            for i in range(ILE_WYROZNIKOW):
+                oferta[f"wyroznik_{i + 1}"] = wyrozniki[i] if i < len(wyrozniki) else ""
+            for i in range(ILE_SZCZEGOLOW):
+                oferta[f"szczegol_{i + 1}"] = szczegoly[i] if i < len(szczegoly) else ""
+            oferty.append(oferta)
+    return oferty
+
+
+def oferta_na_wiersz(oferta, profil):
+    return [" ".join(wypelnij(zrodlo, oferta).split()) for _, zrodlo in profil]
