@@ -1,12 +1,12 @@
-# Ostatnie uruchomienie generatora: 2026-11-19 08:40 (czas polski zimowy)
+# Ostatnie uruchomienie generatora: 2026-11-19 14:37 (czas polski zimowy)
 
 Produktów pobranych ze Shopify: **10**
 
 | Feed | Ofert teraz | Ofert poprzednio | Wynik |
 |---|---|---|---|
-| PL_PLN | 374 | 374 | ✅ zapisano feedy/PL_PLN.tsv |
-| DE_EUR | 374 | 374 | ✅ zapisano feedy/DE_EUR.tsv |
-| EN_EUR | 374 | 374 | ✅ zapisano feedy/EN_EUR.tsv |
+| PL_PLN | 416 | 374 | ✅ zapisano feedy/PL_PLN.tsv |
+| DE_EUR | 416 | 374 | ✅ zapisano feedy/DE_EUR.tsv |
+| EN_EUR | 416 | 374 | ✅ zapisano feedy/EN_EUR.tsv |
 
 ## Ostrzeżenia
 
@@ -40,6 +40,9 @@ Produktów pobranych ze Shopify: **10**
 - Brak w Słowniku: opcja „Color” = „Arabica” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Color” = „Charcoal” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Color” = „Solid Black” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Body material” = „Oak wood” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Body material” = „Ash Veneer” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
+- Brak w Słowniku: opcja „Body material” = „Ash wood” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Doors” = „No doors (open compartments)” (cabinet-for-turntable-vinyl-records-storage). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Configuration” = „1 column · 3 shelves · 55 cm” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Material” = „Oak wood” (kunsst-hi-fi-wood-audio-rack-for-audiophiles). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
