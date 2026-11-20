@@ -57,6 +57,38 @@ query Options($ids: [ID!]!) {
 """
 
 
+MARKETS = """
+query Markets($after: String) {
+  markets(first: 50, after: $after) {
+    pageInfo { hasNextPage endCursor }
+    nodes {
+      name status
+      conditions { regionsCondition { regions(first: 250) { nodes { ... on MarketRegionCountry { code } } } } }
+    }
+  }
+}
+"""
+
+
+def fetch_markets(s):
+    """Rynki ze Shopify z listą krajów – do sprawdzenia, czy każdy kraj ma feed.
+    Przy błędzie zwraca None: feedy i tak powstają, raport tylko o tym wspomni."""
+    try:
+        out, cursor = [], None
+        while True:
+            part = s.query(MARKETS, {"after": cursor})["markets"]
+            for m in part["nodes"]:
+                regions = ((((m.get("conditions") or {}).get("regionsCondition") or {})
+                            .get("regions") or {}).get("nodes") or [])
+                out.append({"name": m["name"], "status": m.get("status"),
+                            "countries": [r["code"] for r in regions if r.get("code")]})
+            if not part["pageInfo"]["hasNextPage"]:
+                return out
+            cursor = part["pageInfo"]["endCursor"]
+    except (SystemExit, KeyError, TypeError):
+        return None
+
+
 def _translations(languages, with_key=True):
     fields = "key value" if with_key else "value"
     return " ".join(f't_{l}: translations(locale: "{l}") {{ {fields} }}' for l in languages if l != "en")
@@ -108,11 +140,12 @@ class Store:
 
 
 def fetch(store, api_version, languages, countries):
-    """Zwraca (produkty, tłumaczenia_opcji).
+    """Zwraca (produkty, tłumaczenia_opcji, rynki).
 
     produkty – aktywne produkty, każdy z pełną listą wariantów w p["variants"]["nodes"];
                cena wariantu dla kraju XX jest w polu price_XX.
     tłumaczenia_opcji – {id opcji lub wartości opcji: {"pl": "...", "de": "..."}}.
+    rynki – rynki Shopify z krajami (albo None, gdy nie udało się ich odczytać).
     """
     s = Store(store, api_version)
     q_products = (PRODUCTS.replace("__TRANSLATIONS__", _translations(languages))
@@ -154,4 +187,4 @@ def fetch(store, api_version, languages, countries):
                 option_translations[n["resourceId"]] = {
                     l: next((t["value"] for t in n.get(f"t_{l}") or [] if t["key"] == "name" and t["value"]), None)
                     for l in other}
-    return products, option_translations
+    return products, option_translations, fetch_markets(s)

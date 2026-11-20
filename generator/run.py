@@ -54,6 +54,66 @@ def md(s):
     return str(s if s is not None else "–").replace("|", "\\|").replace("\n", " ")
 
 
+COUNTRY_NAMES = {
+    "PL": "Polska", "DE": "Niemcy", "AT": "Austria", "LU": "Luksemburg", "CH": "Szwajcaria", "LI": "Liechtenstein",
+    "BE": "Belgia", "NL": "Holandia", "FR": "Francja", "MC": "Monako", "IT": "Włochy", "ES": "Hiszpania",
+    "PT": "Portugalia", "IE": "Irlandia", "GR": "Grecja", "FI": "Finlandia", "SE": "Szwecja", "DK": "Dania",
+    "NO": "Norwegia", "IS": "Islandia", "CZ": "Czechy", "SK": "Słowacja", "SI": "Słowenia", "HU": "Węgry",
+    "HR": "Chorwacja", "RO": "Rumunia", "BG": "Bułgaria", "EE": "Estonia", "LV": "Łotwa", "LT": "Litwa",
+    "CY": "Cypr", "MT": "Malta", "GB": "Wielka Brytania", "US": "Stany Zjednoczone", "CA": "Kanada",
+    "AU": "Australia", "JP": "Japonia",
+}
+
+
+def country_check(shop_markets, platform_list, S, warnings):
+    """Porównuje kraje z rynków Shopify z krajami włączonych feedów (kolumna target_countries)."""
+    lines = ["", "## Kraje: Shopify a feedy", "",
+             "Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.feeds_list.csv` "
+             "ma się z nimi zgadzać. Kraje celowo bez feedu wpisz w `countries_without_feed` "
+             "(`01.settings/01.general_settings.csv`).", ""]
+    if shop_markets is None:
+        lines.append("Nie udało się odczytać rynków ze Shopify – sprawdzenie pominięte.")
+        warnings.append("Nie udało się odczytać rynków ze Shopify (uprawnienie read_markets) – "
+                        "sprawdzenie krajów pominięte.")
+        return lines
+    skip = {c.strip().upper() for c in S["general"].get("countries_without_feed", "").split(",") if c.strip()}
+    shop = {}
+    for m in shop_markets:
+        if (m.get("status") or "ACTIVE").upper() == "ACTIVE":
+            for c in m["countries"]:
+                shop[c.upper()] = m["name"]
+    feeds = collections.defaultdict(list)
+    for platform in platform_list:
+        for f in platform["feeds"]:
+            fid = (f.get("feed_id") or "").strip()
+            if fid and yes(f.get("enabled")):
+                label = fid if len(platform_list) == 1 else f"{platform['name']}: {fid}"
+                for c in (f.get("target_countries") or "").split(","):
+                    if c.strip():
+                        feeds[c.strip().upper()].append(label)
+
+    def name(c):
+        return f"{c} – {COUNTRY_NAMES[c]}" if c in COUNTRY_NAMES else c
+
+    lines += ["| Kraj | Rynek Shopify | Feedy | Stan |", "|---|---|---|---|"]
+    for c in sorted(set(shop) | set(feeds), key=lambda c: (shop.get(c, "~"), c)):
+        if c in shop and c in feeds:
+            status = "✅"
+        elif c in shop and c in skip:
+            status = "celowo bez feedu"
+        elif c in shop:
+            status = "⚠️ brak feedu"
+            warnings.append(f"Shopify sprzedaje do kraju {name(c)} (rynek {shop[c]}), ale żaden włączony feed go "
+                            "nie ma. Dopisz kraj do target_countries właściwego feedu i w źródle w GMC "
+                            "albo do countries_without_feed.")
+        else:
+            status = "⚠️ brak w rynkach Shopify"
+            warnings.append(f"Feed {', '.join(feeds[c])} ma kraj {name(c)}, którego nie ma w żadnym aktywnym "
+                            "rynku Shopify – klient z tego kraju nie kupi w sklepie.")
+        lines.append(f"| {md(name(c))} | {md(shop.get(c, '–'))} | {md(', '.join(feeds.get(c, [])) or '–')} | {status} |")
+    return lines
+
+
 def write_master(rows):
     os.makedirs(os.path.dirname(MASTER), exist_ok=True)
     with open(MASTER, "w", encoding="utf-8-sig", newline="") as f:
@@ -103,13 +163,14 @@ def main():
     if "--data-file" in sys.argv:
         with open(sys.argv[sys.argv.index("--data-file") + 1], encoding="utf-8") as f:
             data = json.load(f)
-        products, option_tr = data["products"], data["option_translations"]
+        products, option_tr, shop_markets = data["products"], data["option_translations"], data.get("markets")
     else:
-        products, option_tr = shopify.fetch(g["shopify_store"].strip(), g.get("shopify_api_version", "2026-10").strip(),
-                                            languages, countries)
+        products, option_tr, shop_markets = shopify.fetch(
+            g["shopify_store"].strip(), g.get("shopify_api_version", "2026-10").strip(), languages, countries)
     if "--save-data" in sys.argv:
         with open(sys.argv[sys.argv.index("--save-data") + 1], "w", encoding="utf-8") as f:
-            json.dump({"products": products, "option_translations": option_tr}, f, ensure_ascii=False)
+            json.dump({"products": products, "option_translations": option_tr, "markets": shop_markets},
+                      f, ensure_ascii=False)
 
     warnings = []
     rows, photo_plan = master_feed.build(products, option_tr, S, warnings)
@@ -119,7 +180,8 @@ def main():
               "max_drop": percent(g.get("safety_max_drop", "30%"), 0.3)}
     stamp = now_pl()
     all_results = []
-    for platform in settings.platforms(ROOT):
+    platform_list = settings.platforms(ROOT)
+    for platform in platform_list:
         results, header, sources, _ = platforms.build(platform, rows, S, warnings, safety)
         write_overview(platform, results, header, sources, stamp)
         all_results += [(platform["name"], r) for r in results]
@@ -161,6 +223,8 @@ def main():
         order = sorted(photo_plan.items(), key=lambda kv: (0 if norm(kv[0][2]) == "flagship" else 1, -kv[1], kv[0][1]))
         for i, ((_, title, _, combo), n) in enumerate(order, 1):
             lines.append(f"| {i} | {md(title)} | {md(combo)} | {n} |")
+
+    lines += country_check(shop_markets, platform_list, S, warnings)
 
     lines += ["", "## Ostrzeżenia", ""]
     lines += [f"- {w}" for w in dict.fromkeys(warnings)] or ["Brak – wszystko w porządku."]
