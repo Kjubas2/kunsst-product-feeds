@@ -1,34 +1,140 @@
-# Raport z ostatniego uruchomienia (PRZYKŁAD)
+# Raport z ostatniego uruchomienia: 2026-11-20 18:41
 
-> Ten plik tworzy się sam przy każdym uruchomieniu programu. Poniżej przykład. Liczby są szacunkowe.
-
-Uruchomienie: 2026-11-20 18:17 · Shopify: 10 produktów, 520 wariantów · Wynik: ✅ wszystkie feedy zapisane
+Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6240 wierszy** (12 rynków), z czego w feedach: **2688**.
 
 ## Feedy
 
-| Platforma | Feed | Ofert | Poprzednio | Pominięte | Wynik |
+| Platforma | Feed | Rynek | Ofert | Poprzednio | Wynik |
 |---|---|---|---|---|---|
-| google | PL_PLN | 150 | 150 | 370 | ✅ zapisano |
-| google | DE_EUR | 150 | 150 | 370 | ✅ zapisano |
-| google | DE_CHF | 150 | 150 | 370 | ✅ zapisano |
-| google | EN_EUR | 150 | 150 | 370 | ✅ zapisano |
+| google | PL_PLN | PL_PLN | 224 | – | ✅ zapisano |
+| google | DE_EUR | DE_EUR | 224 | – | ✅ zapisano |
+| google | DE_CHF | DE_CHF | 224 | – | ✅ zapisano |
+| google | EN_EUR | EN_EUR | 224 | – | ✅ zapisano |
+| google | EN_CZK | EN_CZK | 224 | – | ✅ zapisano |
+| google | EN_SEK | EN_SEK | 224 | – | ✅ zapisano |
+| google | EN_DKK | EN_DKK | 224 | – | ✅ zapisano |
+| google | EN_HUF | EN_HUF | 224 | – | ✅ zapisano |
+| google | EN_NO | EN_NO | 224 | – | ✅ zapisano |
+| google | EN_GBP | EN_GBP | 224 | – | ✅ zapisano |
+| google | EN_USD | EN_USD | 224 | – | ✅ zapisano |
+| google | EN_CAD | EN_CAD | 224 | – | ✅ zapisano |
+| google | PL_TEST | PL_PLN | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
+| google | FR_EUR | FR_EUR | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 
-## Dlaczego warianty nie trafiły do feedów
-- Brak zdjęcia w gatunku i kolorze: ok. 345
-- Wariant „Custom Order”: ok. 25
+## Dlaczego część wariantów nie trafiła do feedów
 
-## Plan zdjęć – co przygotować najpierw
-Jedno zdjęcie przypisane w Shopify do dowolnego wariantu z danej kombinacji odblokowuje w feedach wszystkie jej rozmiary i konfiguracje.
-Kolejność: najpierw produkty z priorytetem (`priority` w 03.products_settings.csv), potem kombinacje, które odblokują najwięcej ofert.
+Liczby dla jednego rynku (w każdym rynku są takie same, chyba że niżej napisano inaczej).
 
-| # | Produkt | Gatunek / kolor | Odblokuje ofert w każdym feedzie |
+| Powód | Wariantów |
+|---|---|
+| brak zdjęcia (szczegóły w planie zdjęć) | 271 |
+| wariant „Custom Order” | 25 |
+
+## Plan zdjęć – od najważniejszych
+
+Przypisz zdjęcie do jednego wariantu z tej kombinacji w Shopify (Produkt → wariant → zdjęcie). Przy następnym uruchomieniu wszystkie warianty tej kombinacji wejdą do feedów.
+
+| # | Produkt | Kombinacja bez zdjęcia | Nowych ofert w każdym feedzie |
 |---|---|---|---|
-| 1 | Wooden audio rack (flagship) | Oak wood / Solid Black | 10 |
-| 2 | Wooden audio rack (flagship) | Oak wood / Dark Roast | 10 |
-| 3 | Wooden audio rack (flagship) | Walnut wood / Natural | 10 |
-| 4 | Solid wood desk with drawer | Oak wood / Solid Black | 6 |
-| 5 | Solid wood desk with drawer | Ash wood / Natural | 6 |
-| … | … (pełna lista w prawdziwym raporcie, ok. 50 kombinacji) | … | … |
+| 1 | Wooden audio rack for amplifier & turntable | Oak wood / Golden Hour | 10 |
+| 2 | Wooden audio rack for amplifier & turntable | Oak wood / Dark Roast | 10 |
+| 3 | Wooden audio rack for amplifier & turntable | Oak wood / Chocolate | 10 |
+| 4 | Wooden audio rack for amplifier & turntable | Oak wood / Arabica | 10 |
+| 5 | Wooden audio rack for amplifier & turntable | Oak wood / Charcoal | 10 |
+| 6 | Wooden audio rack for amplifier & turntable | Oak wood / Solid Black | 10 |
+| 7 | Wooden audio rack for amplifier & turntable | Ash wood / Natural | 10 |
+| 8 | Wooden audio rack for amplifier & turntable | Ash wood / Golden Hour | 10 |
+| 9 | Wooden audio rack for amplifier & turntable | Ash wood / Dark Roast | 10 |
+| 10 | Wooden audio rack for amplifier & turntable | Ash wood / Chocolate | 10 |
+| 11 | Wooden audio rack for amplifier & turntable | Ash wood / Arabica | 10 |
+| 12 | Wooden audio rack for amplifier & turntable | Ash wood / Charcoal | 10 |
+| 13 | Wooden audio rack for amplifier & turntable | Ash wood / Solid Black | 10 |
+| 14 | Wooden audio rack for amplifier & turntable | Beech wood / Natural | 10 |
+| 15 | Wooden audio rack for amplifier & turntable | Beech wood / Golden Hour | 10 |
+| 16 | Wooden audio rack for amplifier & turntable | Beech wood / Dark Roast | 10 |
+| 17 | Wooden audio rack for amplifier & turntable | Beech wood / Chocolate | 10 |
+| 18 | Wooden audio rack for amplifier & turntable | Beech wood / Arabica | 10 |
+| 19 | Wooden audio rack for amplifier & turntable | Beech wood / Charcoal | 10 |
+| 20 | Wooden audio rack for amplifier & turntable | Beech wood / Solid Black | 10 |
+| 21 | Wooden audio rack for amplifier & turntable | Walnut wood / Natural | 10 |
+| 22 | Spacious oak cabinet for vinyl record collection | 3 Doors / Natural Oak - Standard | 2 |
+| 23 | Solid wood coffee table with shelf – minimalist design | Dark Roast | 1 |
+| 24 | Solid wood coffee table with shelf – minimalist design | Golden Hour | 1 |
+| 25 | Solid wood coffee table with shelf – minimalist design | Chocolate | 1 |
+| 26 | Solid wood coffee table with shelf – minimalist design | Arabica | 1 |
+| 27 | Solid wood coffee table with shelf – minimalist design | Solid Black | 1 |
+| 28 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak veneer / Dark Roast | 1 |
+| 29 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak veneer / Chocolate | 1 |
+| 30 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak veneer / Arabica | 1 |
+| 31 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak veneer / Charcoal | 1 |
+| 32 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak veneer / Solid Black | 1 |
+| 33 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Natural | 1 |
+| 34 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Golden Hour | 1 |
+| 35 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Dark Roast | 1 |
+| 36 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Chocolate | 1 |
+| 37 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Arabica | 1 |
+| 38 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Charcoal | 1 |
+| 39 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Oak wood / Solid Black | 1 |
+| 40 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Natural | 1 |
+| 41 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Golden Hour | 1 |
+| 42 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Dark Roast | 1 |
+| 43 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Chocolate | 1 |
+| 44 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Arabica | 1 |
+| 45 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Charcoal | 1 |
+| 46 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash Veneer / Solid Black | 1 |
+| 47 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Natural | 1 |
+| 48 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Golden Hour | 1 |
+| 49 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Dark Roast | 1 |
+| 50 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Chocolate | 1 |
+| 51 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Arabica | 1 |
+| 52 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Charcoal | 1 |
+| 53 | Turntable & vinyl record storage cabinet | 2 doors, open middle compartment / Ash wood / Solid Black | 1 |
+| 54 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Natural | 1 |
+| 55 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Golden Hour | 1 |
+| 56 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Dark Roast | 1 |
+| 57 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Chocolate | 1 |
+| 58 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Arabica | 1 |
+| 59 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Charcoal | 1 |
+| 60 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak veneer / Solid Black | 1 |
+| 61 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Natural | 1 |
+| 62 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Golden Hour | 1 |
+| 63 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Dark Roast | 1 |
+| 64 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Chocolate | 1 |
+| 65 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Arabica | 1 |
+| 66 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Charcoal | 1 |
+| 67 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Oak wood / Solid Black | 1 |
+| 68 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Natural | 1 |
+| 69 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Golden Hour | 1 |
+| 70 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Dark Roast | 1 |
+| 71 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Chocolate | 1 |
+| 72 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Arabica | 1 |
+| 73 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Charcoal | 1 |
+| 74 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash Veneer / Solid Black | 1 |
+| 75 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Natural | 1 |
+| 76 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Golden Hour | 1 |
+| 77 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Dark Roast | 1 |
+| 78 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Chocolate | 1 |
+| 79 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Arabica | 1 |
+| 80 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Charcoal | 1 |
+| 81 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Solid Black | 1 |
 
 ## Ostrzeżenia
-- Brak – wszystko w porządku.
+
+- Brak tłumaczenia PL w Shopify: Length = „110 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „120 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „140 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „150 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „160 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „110 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „120 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „130 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia PL w Shopify: Length = „140 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „110 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „120 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „140 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „150 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „160 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „110 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „120 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „130 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+- Brak tłumaczenia DE w Shopify: Length = „140 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
