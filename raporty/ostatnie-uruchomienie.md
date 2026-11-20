@@ -1,12 +1,12 @@
-# Ostatnie uruchomienie generatora: 2026-11-20 08:39 (czas polski zimowy)
+# Ostatnie uruchomienie generatora: 2026-11-20 14:31 (czas polski zimowy)
 
 Produktów pobranych ze Shopify: **10**
 
 | Feed | Ofert teraz | Ofert poprzednio | Wynik |
 |---|---|---|---|
-| PL_PLN | 416 | 416 | ✅ zapisano feedy/PL_PLN.tsv |
-| DE_EUR | 416 | 416 | ✅ zapisano feedy/DE_EUR.tsv |
-| EN_EUR | 416 | 416 | ✅ zapisano feedy/EN_EUR.tsv |
+| PL_PLN | 400 | 416 | ✅ zapisano feedy/PL_PLN.tsv |
+| DE_EUR | 400 | 416 | ✅ zapisano feedy/DE_EUR.tsv |
+| EN_EUR | 400 | 416 | ✅ zapisano feedy/EN_EUR.tsv |
 
 ## Ostrzeżenia
 
@@ -19,7 +19,6 @@ Produktów pobranych ze Shopify: **10**
 - Brak w Słowniku: opcja „Color” = „Charcoal” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Color” = „Solid Black” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Material” = „Ash wood” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
-- Brak w Słowniku: opcja „Material” = „Beech wood” (solid-wood-desk-with-drawer-model_no-01). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Material” = „Oak wood” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Color” = „Natural” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
 - Brak w Słowniku: opcja „Color” = „Golden Hour” (small-oak-desk-with-drawer). W tytule użyto nazwy z Shopify – dopisz wiersz do Słownika.
