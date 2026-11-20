@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-20 20:06
+# Raport z ostatniego uruchomienia: 2026-11-21 00:34
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6240 wierszy** (12 rynków), z czego w feedach: **2688**.
 
@@ -118,6 +118,39 @@ Przypisz zdjęcie do jednego wariantu z tej kombinacji w Shopify (Produkt → wa
 | 80 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Charcoal | 1 |
 | 81 | Turntable & vinyl record storage cabinet | No doors (open compartments) / Ash wood / Solid Black | 1 |
 
+## Kraje: Shopify a feedy
+
+Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.feeds_list.csv` ma się z nimi zgadzać. Kraje celowo bez feedu wpisz w `countries_without_feed` (`01.settings/01.general_settings.csv`).
+
+| Kraj | Rynek Shopify | Feedy | Stan |
+|---|---|---|---|
+| CH – Szwajcaria | Europe Export (non-EU, 0% VAT) | DE_CHF | ✅ |
+| GB – Wielka Brytania | Europe Export (non-EU, 0% VAT) | EN_GBP | ✅ |
+| LI – Liechtenstein | Europe Export (non-EU, 0% VAT) | DE_CHF | ✅ |
+| NO – Norwegia | Europe Export (non-EU, 0% VAT) | EN_NO | ✅ |
+| AT – Austria | European Union | DE_EUR | ✅ |
+| BE – Belgia | European Union | EN_EUR | ✅ |
+| CZ – Czechy | European Union | EN_CZK | ✅ |
+| DE – Niemcy | European Union | DE_EUR | ✅ |
+| DK – Dania | European Union | EN_DKK | ✅ |
+| ES – Hiszpania | European Union | EN_EUR | ✅ |
+| FI – Finlandia | European Union | EN_EUR | ✅ |
+| FR – Francja | European Union | EN_EUR | ✅ |
+| GR – Grecja | European Union | EN_EUR | ✅ |
+| HU – Węgry | European Union | EN_HUF | ✅ |
+| IE – Irlandia | European Union | EN_EUR | ✅ |
+| IT – Włochy | European Union | EN_EUR | ✅ |
+| LU – Luksemburg | European Union | DE_EUR | ✅ |
+| MC – Monako | European Union | – | celowo bez feedu |
+| NL – Holandia | European Union | EN_EUR | ✅ |
+| PT – Portugalia | European Union | EN_EUR | ✅ |
+| SE – Szwecja | European Union | EN_SEK | ✅ |
+| SI – Słowenia | European Union | – | ⚠️ brak feedu |
+| SK – Słowacja | European Union | EN_EUR | ✅ |
+| CA – Kanada | North America (0% VAT) | EN_CAD | ✅ |
+| US – Stany Zjednoczone | North America (0% VAT) | EN_USD | ✅ |
+| PL – Polska | Poland | PL_PLN | ✅ |
+
 ## Ostrzeżenia
 
-Brak – wszystko w porządku.
+- Shopify sprzedaje do kraju SI – Słowenia (rynek European Union), ale żaden włączony feed go nie ma. Dopisz kraj do target_countries właściwego feedu i w źródle w GMC albo do countries_without_feed.
