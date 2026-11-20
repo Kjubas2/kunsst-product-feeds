@@ -148,7 +148,8 @@ def describe_options(p, v, lang, S, option_tr, warnings):
         from_shopify = value
         if lang != "en":
             from_shopify = (option_tr.get(value_ids.get((norm(name), value)), {}) or {}).get(lang) or ""
-            if not from_shopify and not from_dict:
+            language_neutral = not re.search(r"[^\W\d_]{3,}", re.sub(r"(?i)\b(cm|mm)\b", "", value))
+            if not from_shopify and not from_dict and not language_neutral:  # „110 cm” jest takie samo w każdym języku
                 warnings.append(f"Brak tłumaczenia {lang.upper()} w Shopify: {name} = „{value}” ({p['handle']}) – "
                                 "użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.")
             from_shopify = from_shopify or value
