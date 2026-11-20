@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-20 18:41
+# Raport z ostatniego uruchomienia: 2026-11-20 18:43
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6240 wierszy** (12 rynków), z czego w feedach: **2688**.
 
@@ -6,18 +6,18 @@ Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **62
 
 | Platforma | Feed | Rynek | Ofert | Poprzednio | Wynik |
 |---|---|---|---|---|---|
-| google | PL_PLN | PL_PLN | 224 | – | ✅ zapisano |
-| google | DE_EUR | DE_EUR | 224 | – | ✅ zapisano |
-| google | DE_CHF | DE_CHF | 224 | – | ✅ zapisano |
-| google | EN_EUR | EN_EUR | 224 | – | ✅ zapisano |
-| google | EN_CZK | EN_CZK | 224 | – | ✅ zapisano |
-| google | EN_SEK | EN_SEK | 224 | – | ✅ zapisano |
-| google | EN_DKK | EN_DKK | 224 | – | ✅ zapisano |
-| google | EN_HUF | EN_HUF | 224 | – | ✅ zapisano |
-| google | EN_NO | EN_NO | 224 | – | ✅ zapisano |
-| google | EN_GBP | EN_GBP | 224 | – | ✅ zapisano |
-| google | EN_USD | EN_USD | 224 | – | ✅ zapisano |
-| google | EN_CAD | EN_CAD | 224 | – | ✅ zapisano |
+| google | PL_PLN | PL_PLN | 224 | 224 | ✅ zapisano |
+| google | DE_EUR | DE_EUR | 224 | 224 | ✅ zapisano |
+| google | DE_CHF | DE_CHF | 224 | 224 | ✅ zapisano |
+| google | EN_EUR | EN_EUR | 224 | 224 | ✅ zapisano |
+| google | EN_CZK | EN_CZK | 224 | 224 | ✅ zapisano |
+| google | EN_SEK | EN_SEK | 224 | 224 | ✅ zapisano |
+| google | EN_DKK | EN_DKK | 224 | 224 | ✅ zapisano |
+| google | EN_HUF | EN_HUF | 224 | 224 | ✅ zapisano |
+| google | EN_NO | EN_NO | 224 | 224 | ✅ zapisano |
+| google | EN_GBP | EN_GBP | 224 | 224 | ✅ zapisano |
+| google | EN_USD | EN_USD | 224 | 224 | ✅ zapisano |
+| google | EN_CAD | EN_CAD | 224 | 224 | ✅ zapisano |
 | google | PL_TEST | PL_PLN | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 | google | FR_EUR | FR_EUR | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 
@@ -120,21 +120,4 @@ Przypisz zdjęcie do jednego wariantu z tej kombinacji w Shopify (Produkt → wa
 
 ## Ostrzeżenia
 
-- Brak tłumaczenia PL w Shopify: Length = „110 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „120 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „140 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „150 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „160 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „110 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „120 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „130 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia PL w Shopify: Length = „140 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „110 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „120 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „140 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „150 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „160 cm” (solid-wood-desk-with-drawer-model_no-01) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „110 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „120 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „130 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
-- Brak tłumaczenia DE w Shopify: Length = „140 cm” (small-oak-desk-with-drawer) – użyto nazwy angielskiej. Dodaj tłumaczenie w Shopify albo wpis w 05.dictionary.csv.
+Brak – wszystko w porządku.
