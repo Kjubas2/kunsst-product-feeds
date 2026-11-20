@@ -1,0 +1,15 @@
+rule,column,value,what_happens,opis
+file_format,,TSV,,"Kolumny rozdzielone tabulatorem, kodowanie UTF-8, jedna oferta w wierszu"
+required,"id, title, description, link, image_link, availability, price, brand",,skip_offer,Oferta bez któregoś z tych pól nie trafia do pliku (wpis w raporcie)
+value_map,availability,available → in_stock; not_available → out_of_stock,convert,Zapis wymagany przez Google
+currency_must_match_market,price,,skip_offer,Cena w innej walucie niż rynek = oferta pominięta
+max_length,title,150,trim_and_warn,Przycina i wpisuje ostrzeżenie do raportu
+max_length,description,5000,trim,
+max_length,color,100,trim,
+max_length,size,100,trim,
+max_length,material,200,trim,
+max_length,product_highlight,150,trim,Każda zaleta osobno
+min_values,product_highlight,2,clear,"Google wymaga co najmniej 2 zalet – gdy jest tylko jedna, kolumny zostają puste"
+quote_if_comma,product_highlight,,quote,Zaleta z przecinkiem trafia w cudzysłów – inaczej Google podzieliłby ją na dwie (pole powtarzane)
+quote_sub_values,product_detail,,quote,"Część cechy z przecinkiem lub dwukropkiem trafia w cudzysłów, np. Wymiary:Szerokość:""120 cm, z blatem"""
+skip_empty_columns,,yes,,Puste kolumny powtarzane (np. 5. zaleta) zostają puste

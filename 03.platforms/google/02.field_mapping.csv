@@ -1,0 +1,42 @@
+google_column,source,opis,required_by_google
+id,{offer_id},Stały numer oferty,yes
+item_group_id,{product_id},Łączy warianty jednego mebla,"yes, for variants"
+title,{title},"Nazwa mebla + gatunek, kolor, rozmiar",yes
+description,{description},Opis ze Shopify w języku feedu,yes
+link,{product_url}&utm_source=google&utm_medium=organic&utm_campaign=shopping_free_{feed_id},Strona wariantu + kody śledzenia bezpłatnych wyników,yes
+ads_redirect,{product_url},Ten sam link bez kodów – dla Google Ads,no
+image_link,{image_link},Zdjęcie w gatunku i kolorze wariantu,yes
+additional_image_link,{additional_image_links},Pozostałe zdjęcia,no (min. 3 zalecane)
+availability,{availability},Zapis zamieniany wg 03.platform_rules (available → in_stock),yes
+price,{price} {currency},Np. 4987.00 PLN,yes
+sale_price,{sale_price} {currency},"Tylko gdy jest promocja. Zasada: gdy pierwsze pole szablonu jest puste, kolumna zostaje pusta",no
+brand,{brand},Z 01.general_settings,yes
+mpn,{sku},Numer wariantu,"yes, when no GTIN"
+identifier_exists,no,Stały tekst – meble bez kodów EAN,"yes, when no GTIN"
+condition,new,Stały tekst,no for new items
+google_product_category,{google_product_category},,recommended
+product_type,{product_type},,recommended
+color,{color},,recommended
+material,{material},,recommended
+size,{size},,recommended
+product_highlight,{highlight_1},Zaleta produktu,recommended
+product_highlight,{highlight_2},Zaleta produktu,recommended
+product_highlight,{highlight_3},Zaleta produktu,recommended
+product_highlight,{highlight_4},Zaleta produktu,recommended
+product_highlight,{highlight_5},Zaleta produktu,recommended
+product_highlight,{highlight_6},Zaleta produktu,recommended
+product_detail,{detail_1},Cecha techniczna,recommended
+product_detail,{detail_2},Cecha techniczna,recommended
+product_detail,{detail_3},Cecha techniczna,recommended
+product_detail,{detail_4},Cecha techniczna,recommended
+product_detail,{detail_5},Cecha techniczna,recommended
+product_detail,{detail_6},Cecha techniczna,recommended
+shipping_weight,{weight},Tylko gdy waga większa od 0,no
+min_handling_time,{handling_days_min},,recommended
+max_handling_time,{handling_days_max},,recommended
+custom_label_0,{product_line},Etykieta do kampanii,no
+custom_label_1,{category},Etykieta do kampanii,no
+custom_label_2,{wood_species},Etykieta do kampanii,no
+custom_label_3,{finish},Etykieta do kampanii,no
+custom_label_4,{priority},Etykieta do kampanii,no
+excluded_destination,{excluded_destinations},Z 01.feeds_list – tylko w feedzie testowym,no

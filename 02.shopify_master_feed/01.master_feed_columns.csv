@@ -1,0 +1,35 @@
+column,opis,skąd,przykład (PL_PLN)
+market,Rynek (język + waluta + ceny),01.settings/02.markets.csv,PL_PLN
+offer_id,Stały numer oferty – ten sam we wszystkich platformach,offer_id_prefix + produkt + wariant,shopify_PL_9154448589142_56658904908118
+product_id,Numer produktu w Shopify – łączy warianty,Shopify,9154448589142
+variant_id,Numer wariantu w Shopify,Shopify,56658904908118
+sku,SKU wariantu,Shopify,JD-003-140-ASH-BLK
+product_name,Nazwa mebla w języku rynku,Shopify (tłumaczenie) albo feed_title z 03.products_settings,Małe biurko z litego drewna z szufladą
+variant_features,Cechy wariantu w kolejności z 04.variant_options,Shopify (tłumaczenia) + 05.dictionary,"lity jesion, kolor czarny, 140 cm"
+title,Pełny tytuł: product_name + separator + variant_features,Wyliczane,"Małe biurko z litego drewna z szufladą – lity jesion, kolor czarny, 140 cm"
+description,Opis produktu bez formatowania (tylko w wierszach in_feeds = YES – inaczej plik byłby za duży),Shopify (tłumaczenie),"Wykwintne, ręcznie wykonane biurko…"
+product_url,"Strona wariantu w języku i walucie rynku, bez kodów śledzenia",shop_domain + language_path + adres produktu + wariant + waluta + kraj (currency= i country= wymuszają właściwy rynek, niezależnie skąd wchodzi Google),https://kunsst.com/pl/products/male-biurko-debowe-z-szuflada?variant=56658904908118&currency=PLN&country=PL
+image_link,Zdjęcie pasujące do gatunku i koloru wariantu,Shopify (zasada zdjęć),https://cdn.shopify.com/…/Matte_black_ash_writing_desk-2.webp
+additional_image_links,"Pozostałe zdjęcia bez zdjęć innych kolorów, po przecinku (tylko w wierszach in_feeds = YES)",Shopify,"https://cdn.shopify.com/…, …"
+availability,available / not_available (zapis dla platformy w jej zasadach),Shopify,available
+price,Cena w walucie rynku,"Shopify, cennik kraju z 02.markets",4987.00
+sale_price,Cena promocyjna (gdy w Shopify jest cena porównawcza),Shopify,
+currency,Waluta,02.markets,PLN
+brand,Marka,01.general_settings,KUNSST FURNITURE
+color,Kolor w języku rynku,Shopify + 05.dictionary,Czarny
+material,Materiał w języku rynku,Shopify + 05.dictionary,Lity jesion
+size,Rozmiar / konfiguracja,Shopify + 05.dictionary,140 cm
+wood_species,Gatunek – kod do etykiet (zawsze po angielsku),Automatycznie z wariantu,ash
+finish,natural albo stained – kod do etykiet,Automatycznie z koloru,stained
+product_line,audio / home,03.products_settings,home
+category,Rodzaj mebla – kod do etykiet,03.products_settings,desks
+priority,Priorytet – kod do etykiet,03.products_settings,
+google_product_category,Kategoria Google,03.products_settings,4191
+product_type,Twoja kategoria,03.products_settings,Home furniture > Desks
+highlight_1 … highlight_6,Zalety produktu,Shopify (metapole wyróżników),Prowadnice szuflad bez elementów metalowych
+detail_1 … detail_6,"Cechy techniczne: sekcja:cecha:wartość (wymiary z metapola; pomijane, gdy warianty różnią się rozmiarem)",Shopify (metapole wymiarów),Wymiary:Wysokość:75 cm
+weight,Waga wariantu,Shopify,29 kg
+handling_days_min,Czas realizacji od (dni robocze),"Shopify (metapole lead time, tygodnie × 5)",10
+handling_days_max,Czas realizacji do (dni robocze),Shopify,20
+in_feeds,YES / NO – czy wariant trafia do feedów (NO = powód w skip_reason),Wyliczane,YES
+skip_reason,Dlaczego NO,Wyliczane,

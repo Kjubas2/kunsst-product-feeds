@@ -1,0 +1,12 @@
+setting,value,opis
+shop_domain,https://kunsst.com,Początek każdego linku do produktu
+shopify_store,518761-3e.myshopify.com,"Sklep, z którego program czyta produkty (tylko odczyt)"
+shopify_api_version,2026-10,Wersja API Shopify
+offer_id_prefix,shopify_PL_,Początek ID oferty. NIE ZMIENIAĆ – Google straciłby historię produktów
+brand,KUNSST FURNITURE,"Marka we wszystkich feedach – taka jak pole „Producent” (vendor) produktów w Shopify, które strona pokazuje w danych dla Google. Zmieniasz tylko razem z vendor w Shopify"
+variants_without_matching_image,SKIP,"SKIP = do feedów trafiają tylko warianty ze zdjęciem w swoim gatunku i kolorze; brakujące kombinacje są w raporcie w kolejności ważności (plan zdjęć). SHOW_MAIN_IMAGE = także pozostałe, ze zdjęciem głównym (niezalecane)"
+skip_variants_containing,Custom Order,"Warianty, w których nazwie jest ten tekst, są pomijane (np. „Different - Custom Order”)"
+title_separator, – ,Znak między nazwą mebla a cechami wariantu w tytule
+safety_min_offers,50,"Jeśli feed ma mniej ofert – stary plik zostaje, GitHub wysyła e-mail"
+safety_max_drop,30%,"Jeśli liczba ofert spadnie bardziej – stary plik zostaje, GitHub wysyła e-mail"
+run_every_hours,6,Informacja: program działa co 6 godzin. Zmiana wymaga edycji pliku .github/workflows/generate-feeds.yml (linia cron)

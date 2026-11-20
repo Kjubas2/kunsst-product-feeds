@@ -1,0 +1,14 @@
+market_id,enabled,language,currency,prices_from_country,language_path,opis
+PL_PLN,YES,pl,PLN,PL,/pl,Polska
+DE_EUR,YES,de,EUR,DE,/de,"Niemcy, Austria, Luksemburg (ceny UE)"
+DE_CHF,YES,de,CHF,CH,/de,"Szwajcaria, Liechtenstein (rynek Europe Export, ceny bez VAT)"
+EN_EUR,YES,en,EUR,NL,,"Kraje UE z euro, angielski"
+EN_NO,YES,en,EUR,NO,,"Norwegia – rynek Europe Export (+7%, bez VAT); cena nie jest zaokrąglona (np. 970.49 EUR)"
+EN_GBP,YES,en,GBP,GB,,Wielka Brytania
+EN_USD,YES,en,USD,US,,USA
+EN_CAD,YES,en,CAD,CA,,Kanada
+EN_SEK,YES,en,SEK,SE,,Szwecja
+EN_DKK,YES,en,DKK,DK,,Dania
+EN_CZK,YES,en,CZK,CZ,,Czechy
+EN_HUF,YES,en,HUF,HU,,Węgry
+FR_EUR,NO,fr,EUR,FR,/fr,Dopiero po dodaniu francuskiego na stronie

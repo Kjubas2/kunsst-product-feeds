@@ -1,0 +1,56 @@
+# Automatyczne generowanie feedów.
+# GitHub uruchamia to sam co 6 godzin, po każdej zmianie ustawień, a także na żądanie:
+# zakładka "Actions" → "Generate feeds" → przycisk "Run workflow".
+# Gdy coś pójdzie nie tak, GitHub wyśle e-mail na adres konta.
+
+name: Generate feeds
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"   # co 6 godzin (czas UTC): 02:17, 08:17, 14:17, 20:17 w Polsce zimą
+  workflow_dispatch: {}       # przycisk "Run workflow"
+  push:
+    paths:
+      - "01.settings/**"      # zmiana ustawień = od razu nowe feedy
+      - "03.platforms/**/*.csv"
+      - "generator/**"
+      - ".github/workflows/**"
+
+permissions:
+  contents: write             # pozwala zapisać nowe pliki feedów w repozytorium
+
+concurrency:
+  group: generate-feeds-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pobierz repozytorium
+        uses: actions/checkout@v4
+
+      - name: Przygotuj Pythona
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Zbuduj Shopify Master Feed i feedy
+        env:
+          SHOPIFY_CLIENT_ID: ${{ secrets.SHOPIFY_CLIENT_ID }}
+          SHOPIFY_CLIENT_SECRET: ${{ secrets.SHOPIFY_CLIENT_SECRET }}
+        run: python generator/run.py
+
+      - name: Zapisz wyniki (także raport, gdy feed zatrzymano)
+        if: always()
+        run: |
+          git config user.name "feed-generator"
+          git config user.email "feed-generator@users.noreply.github.com"
+          git add 02.shopify_master_feed 03.platforms 04.reports
+          if git diff --cached --quiet; then
+            echo "Bez zmian – nic do zapisania."
+          else
+            git commit -m "Feeds updated automatically ($(date -u +'%Y-%m-%d %H:%M') UTC)"
+            git pull --rebase
+            git push
+          fi

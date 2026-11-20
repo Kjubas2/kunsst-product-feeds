@@ -1,0 +1,15 @@
+option_name,shopify_value,pl,de,en,show_in_title,uwagi
+Color,Natural,,,natural,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Color,Golden Hour,,,honey,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Color,Dark Roast,,,dark brown,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Color,Chocolate,,,chocolate brown,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Color,Arabica,,,chestnut brown,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Color,Charcoal,,,charcoal grey,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Color,Solid Black,,,black,YES,"PL i DE ze Shopify; EN: strona pokazuje nazwę palety, feed dostaje zwykłą nazwę koloru"
+Length,130 cm - Standard,130 cm,130 cm,130 cm,YES,W Shopify brak tłumaczenia; bez słowa „Standard”
+Length,175cm - Standard,175 cm,175 cm,175 cm,YES,Bez słowa „Standard”
+Color,Natural - Standard,Naturalny,Natur,natural,YES,Stare szafki
+Color,Natural Oak - Standard,Naturalny,Natur,natural,YES,Stare szafki
+Body Color,Natural - Standard,Naturalny,Natur,natural,YES,Stare szafki
+Door color,Natural- standard,,,,NO,Kolor drzwi jak korpus – nie powtarzamy w tytule
+Front color,Natural- standard,,,,NO,Jak wyżej

@@ -1,0 +1,12 @@
+option_name,role,title_order,title_prefix_pl,title_prefix_de,title_prefix_en,image_must_match,label,uwagi
+Material,material,1,,,,YES,wood_species,"Gatunek drewna (biurka, stolik audio)"
+Body material,material,1,,,,YES,wood_species,Korpus szafki JD-007: fornir lub lite drewno
+Color,color,2,kolor ,,,YES,finish,Paleta kolorów
+Body Color,color,2,kolor ,,,YES,finish,Stare szafki
+Length,size,3,,,,NO,,Długość biurka i szafki
+Configuration,size,3,,,,NO,,Konfiguracja stolika audio
+Doors,other,4,,,,YES,,Drzwi szafek – inne zdjęcie dla każdej wersji
+Door color,other,4,,,,YES,,Stare szafki
+Front color,other,4,,,,YES,,Stare szafki
+Door opening,other,5,,,,NO,,Push-to-open lub uchwyt
+Doors opening,other,5,,,,NO,,
