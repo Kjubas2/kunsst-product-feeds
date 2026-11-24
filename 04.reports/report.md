@@ -1,6 +1,6 @@
-# Raport z ostatniego uruchomienia: 2026-11-24 14:25
+# Raport z ostatniego uruchomienia: 2026-11-24 20:05
 
-Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6240 wierszy** (12 rynków), z czego w feedach: **2688**.
+Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6760 wierszy** (13 rynków), z czego w feedach: **2912**.
 
 ## Feedy
 
@@ -8,6 +8,7 @@ Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **62
 |---|---|---|---|---|---|
 | google | PL_PLN | PL_PLN | 224 | 224 | ✅ zapisano |
 | google | DE_EUR | DE_EUR | 224 | 224 | ✅ zapisano |
+| google | DE_EUR_EU | DE_EUR_EU | 224 | – | ✅ zapisano |
 | google | DE_CHF | DE_CHF | 224 | 224 | ✅ zapisano |
 | google | EN_EUR | EN_EUR | 224 | 224 | ✅ zapisano |
 | google | EN_CZK | EN_CZK | 224 | 224 | ✅ zapisano |
@@ -128,10 +129,9 @@ Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.fee
 | GB – Wielka Brytania | Europe Export (non-EU, 0% VAT) | EN_GBP | ✅ |
 | LI – Liechtenstein | Europe Export (non-EU, 0% VAT) | DE_CHF | ✅ |
 | NO – Norwegia | Europe Export (non-EU, 0% VAT) | EN_NO | ✅ |
-| AT – Austria | European Union | DE_EUR | ✅ |
+| AT – Austria | European Union | DE_EUR_EU | ✅ |
 | BE – Belgia | European Union | EN_EUR | ✅ |
 | CZ – Czechy | European Union | EN_CZK | ✅ |
-| DE – Niemcy | European Union | DE_EUR | ✅ |
 | DK – Dania | European Union | EN_DKK | ✅ |
 | ES – Hiszpania | European Union | EN_EUR | ✅ |
 | FI – Finlandia | European Union | EN_EUR | ✅ |
@@ -140,13 +140,14 @@ Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.fee
 | HU – Węgry | European Union | EN_HUF | ✅ |
 | IE – Irlandia | European Union | EN_EUR | ✅ |
 | IT – Włochy | European Union | EN_EUR | ✅ |
-| LU – Luksemburg | European Union | DE_EUR | ✅ |
+| LU – Luksemburg | European Union | DE_EUR_EU | ✅ |
 | MC – Monako | European Union | – | celowo bez feedu |
 | NL – Holandia | European Union | EN_EUR | ✅ |
 | PT – Portugalia | European Union | EN_EUR | ✅ |
 | SE – Szwecja | European Union | EN_SEK | ✅ |
 | SI – Słowenia | European Union | – | ⚠️ brak feedu |
 | SK – Słowacja | European Union | EN_EUR | ✅ |
+| DE – Niemcy | Germany | DE_EUR | ✅ |
 | CA – Kanada | North America (0% VAT) | EN_CAD | ✅ |
 | US – Stany Zjednoczone | North America (0% VAT) | EN_USD | ✅ |
 | PL – Polska | Poland | PL_PLN | ✅ |
