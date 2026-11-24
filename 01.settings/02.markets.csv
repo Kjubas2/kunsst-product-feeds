@@ -1,6 +1,7 @@
 market_id,enabled,language,currency,prices_from_country,language_path,opis
 PL_PLN,YES,pl,PLN,PL,/pl,Polska
-DE_EUR,YES,de,EUR,DE,/de,"Niemcy, Austria, Luksemburg (ceny UE)"
+DE_EUR,YES,de,EUR,DE,/de,Niemcy (rynek Shopify „Niemcy”)
+DE_EUR_EU,YES,de,EUR,AT,/de,"Austria, Luksemburg po niemiecku (rynek Shopify „European Union”, ceny i linki z AT)"
 DE_CHF,YES,de,CHF,CH,/de,"Szwajcaria, Liechtenstein (rynek Europe Export, ceny bez VAT)"
 EN_EUR,YES,en,EUR,NL,,"Kraje UE z euro, angielski"
 EN_NO,YES,en,EUR,NO,,"Norwegia – rynek Europe Export (+7%, bez VAT); cena nie jest zaokrąglona (np. 970.49 EUR)"
