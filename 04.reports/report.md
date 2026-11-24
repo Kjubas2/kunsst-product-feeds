@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-24 20:05
+# Raport z ostatniego uruchomienia: 2026-11-24 20:07
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6760 wierszy** (13 rynków), z czego w feedach: **2912**.
 
@@ -8,7 +8,7 @@ Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **67
 |---|---|---|---|---|---|
 | google | PL_PLN | PL_PLN | 224 | 224 | ✅ zapisano |
 | google | DE_EUR | DE_EUR | 224 | 224 | ✅ zapisano |
-| google | DE_EUR_EU | DE_EUR_EU | 224 | – | ✅ zapisano |
+| google | DE_EUR_EU | DE_EUR_EU | 224 | 224 | ✅ zapisano |
 | google | DE_CHF | DE_CHF | 224 | 224 | ✅ zapisano |
 | google | EN_EUR | EN_EUR | 224 | 224 | ✅ zapisano |
 | google | EN_CZK | EN_CZK | 224 | 224 | ✅ zapisano |
