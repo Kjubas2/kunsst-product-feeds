@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-25 08:30
+# Raport z ostatniego uruchomienia: 2026-11-25 14:30
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6760 wierszy** (13 rynków), z czego w feedach: **2912**.
 
