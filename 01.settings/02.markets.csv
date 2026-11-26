@@ -1,15 +1,27 @@
 market_id,enabled,language,currency,prices_from_country,language_path,opis
-PL_PLN,YES,pl,PLN,PL,/pl,Polska – rynek Shopify „Poland”; ceny z PL
-DE_EUR,YES,de,EUR,DE,/de,Niemcy – rynek Shopify „Germany”; ceny z DE
-DE_EUR_EU,YES,de,EUR,AT,/de,"Austria, Luksemburg – rynek Shopify „European Union”; ceny z AT"
-DE_CHF,YES,de,CHF,CH,/de,"Szwajcaria, Liechtenstein – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z CH, bez VAT"
-EN_EUR,YES,en,EUR,NL,,"Belgia, Finlandia, Francja, Grecja, Hiszpania, Holandia, Irlandia, Portugalia, Słowacja, Włochy – rynek Shopify „European Union”; ceny z NL"
-EN_NO,YES,en,EUR,NO,,"Norwegia – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z NO, bez VAT, niezaokrąglone (np. 970.49 EUR)"
-EN_GBP,YES,en,GBP,GB,,"Wielka Brytania – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z GB, bez VAT"
-EN_USD,YES,en,USD,US,,"USA – rynek Shopify „North America (0% VAT)”; ceny z US, bez podatku"
-EN_CAD,YES,en,CAD,CA,,"Kanada – rynek Shopify „North America (0% VAT)”; ceny z CA, bez podatku"
-EN_SEK,YES,en,SEK,SE,,Szwecja – rynek Shopify „European Union”; ceny z SE (przeliczane kursem)
-EN_DKK,YES,en,DKK,DK,,Dania – rynek Shopify „European Union”; ceny z DK (przeliczane kursem)
-EN_CZK,YES,en,CZK,CZ,,Czechy – rynek Shopify „European Union”; ceny z CZ (przeliczane kursem)
-EN_HUF,YES,en,HUF,HU,,Węgry – rynek Shopify „European Union”; ceny z HU (przeliczane kursem)
-FR_EUR,NO,fr,EUR,FR,/fr,Francja – rynek Shopify „European Union”; ceny z FR; wyłączony do czasu dodania francuskiego na stronie
+PL_PL_PLN,YES,pl,PLN,PL,/pl,Polska – rynek Shopify „Poland”; ceny z PL
+DE_DE_EUR,YES,de,EUR,DE,/de,Niemcy – rynek Shopify „Germany”; ceny z DE
+DE_EN_EUR,YES,en,EUR,DE,,Niemcy (angielski) – rynek Shopify „Germany”; ceny z DE
+AT_DE_EUR,YES,de,EUR,AT,/de,Austria – rynek Shopify „European Union”; ceny z AT
+LU_DE_EUR,YES,de,EUR,LU,/de,Luksemburg – rynek Shopify „European Union”; ceny z LU
+CH_DE_CHF,YES,de,CHF,CH,/de,"Szwajcaria – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z CH, bez VAT"
+LI_DE_CHF,YES,de,CHF,LI,/de,"Liechtenstein – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z LI, bez VAT"
+NL_EN_EUR,YES,en,EUR,NL,,Holandia – rynek Shopify „European Union”; ceny z NL
+BE_EN_EUR,YES,en,EUR,BE,,Belgia – rynek Shopify „European Union”; ceny z BE
+ES_EN_EUR,YES,en,EUR,ES,,Hiszpania – rynek Shopify „European Union”; ceny z ES
+FI_EN_EUR,YES,en,EUR,FI,,Finlandia – rynek Shopify „European Union”; ceny z FI
+FR_EN_EUR,YES,en,EUR,FR,,Francja – rynek Shopify „European Union”; ceny z FR
+GR_EN_EUR,YES,en,EUR,GR,,Grecja – rynek Shopify „European Union”; ceny z GR
+IE_EN_EUR,YES,en,EUR,IE,,Irlandia – rynek Shopify „European Union”; ceny z IE
+IT_EN_EUR,YES,en,EUR,IT,,Włochy – rynek Shopify „European Union”; ceny z IT
+PT_EN_EUR,YES,en,EUR,PT,,Portugalia – rynek Shopify „European Union”; ceny z PT
+SK_EN_EUR,YES,en,EUR,SK,,Słowacja – rynek Shopify „European Union”; ceny z SK
+CZ_EN_CZK,YES,en,CZK,CZ,,Czechy – rynek Shopify „European Union”; ceny z CZ (przeliczane kursem)
+SE_EN_SEK,YES,en,SEK,SE,,Szwecja – rynek Shopify „European Union”; ceny z SE (przeliczane kursem)
+DK_EN_DKK,YES,en,DKK,DK,,Dania – rynek Shopify „European Union”; ceny z DK (przeliczane kursem)
+HU_EN_HUF,YES,en,HUF,HU,,Węgry – rynek Shopify „European Union”; ceny z HU (przeliczane kursem)
+NO_EN_EUR,YES,en,EUR,NO,,"Norwegia – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z NO, bez VAT, niezaokrąglone (np. 970.49 EUR)"
+GB_EN_GBP,YES,en,GBP,GB,,"Wielka Brytania – rynek Shopify „Europe Export (non-EU, 0% VAT)”; ceny z GB, bez VAT"
+US_EN_USD,YES,en,USD,US,,"USA – rynek Shopify „North America (0% VAT)”; ceny z US, bez podatku"
+CA_EN_CAD,YES,en,CAD,CA,,"Kanada – rynek Shopify „North America (0% VAT)”; ceny z CA, bez podatku"
+FR_FR_EUR,NO,fr,EUR,FR,/fr,Francja po francusku – rynek Shopify „European Union”; ceny z FR; wyłączony do czasu dodania francuskiego na stronie
