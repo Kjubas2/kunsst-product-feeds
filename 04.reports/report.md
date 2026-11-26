@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-26 16:50
+# Raport z ostatniego uruchomienia: 2026-11-26 20:08
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **13000 wierszy** (25 rynków), z czego w feedach: **5600**.
 
@@ -6,31 +6,31 @@ Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **13
 
 | Platforma | Feed | Rynek | Ofert | Poprzednio | Wynik |
 |---|---|---|---|---|---|
-| google | PL_PL_PLN | PL_PL_PLN | 224 | – | ✅ zapisano |
-| google | DE_DE_EUR | DE_DE_EUR | 224 | – | ✅ zapisano |
-| google | DE_EN_EUR | DE_EN_EUR | 224 | – | ✅ zapisano |
-| google | AT_DE_EUR | AT_DE_EUR | 224 | – | ✅ zapisano |
-| google | LU_DE_EUR | LU_DE_EUR | 224 | – | ✅ zapisano |
-| google | CH_DE_CHF | CH_DE_CHF | 224 | – | ✅ zapisano |
-| google | LI_DE_CHF | LI_DE_CHF | 224 | – | ✅ zapisano |
-| google | NL_EN_EUR | NL_EN_EUR | 224 | – | ✅ zapisano |
-| google | BE_EN_EUR | BE_EN_EUR | 224 | – | ✅ zapisano |
-| google | ES_EN_EUR | ES_EN_EUR | 224 | – | ✅ zapisano |
-| google | FI_EN_EUR | FI_EN_EUR | 224 | – | ✅ zapisano |
-| google | FR_EN_EUR | FR_EN_EUR | 224 | – | ✅ zapisano |
-| google | GR_EN_EUR | GR_EN_EUR | 224 | – | ✅ zapisano |
-| google | IE_EN_EUR | IE_EN_EUR | 224 | – | ✅ zapisano |
-| google | IT_EN_EUR | IT_EN_EUR | 224 | – | ✅ zapisano |
-| google | PT_EN_EUR | PT_EN_EUR | 224 | – | ✅ zapisano |
-| google | SK_EN_EUR | SK_EN_EUR | 224 | – | ✅ zapisano |
-| google | CZ_EN_CZK | CZ_EN_CZK | 224 | – | ✅ zapisano |
-| google | SE_EN_SEK | SE_EN_SEK | 224 | – | ✅ zapisano |
-| google | DK_EN_DKK | DK_EN_DKK | 224 | – | ✅ zapisano |
-| google | HU_EN_HUF | HU_EN_HUF | 224 | – | ✅ zapisano |
-| google | NO_EN_EUR | NO_EN_EUR | 224 | – | ✅ zapisano |
-| google | GB_EN_GBP | GB_EN_GBP | 224 | – | ✅ zapisano |
-| google | US_EN_USD | US_EN_USD | 224 | – | ✅ zapisano |
-| google | CA_EN_CAD | CA_EN_CAD | 224 | – | ✅ zapisano |
+| google | PL_PL_PLN | PL_PL_PLN | 224 | 224 | ✅ zapisano |
+| google | DE_DE_EUR | DE_DE_EUR | 224 | 224 | ✅ zapisano |
+| google | DE_EN_EUR | DE_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | AT_DE_EUR | AT_DE_EUR | 224 | 224 | ✅ zapisano |
+| google | LU_DE_EUR | LU_DE_EUR | 224 | 224 | ✅ zapisano |
+| google | CH_DE_CHF | CH_DE_CHF | 224 | 224 | ✅ zapisano |
+| google | LI_DE_CHF | LI_DE_CHF | 224 | 224 | ✅ zapisano |
+| google | NL_EN_EUR | NL_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | BE_EN_EUR | BE_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | ES_EN_EUR | ES_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | FI_EN_EUR | FI_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | FR_EN_EUR | FR_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | GR_EN_EUR | GR_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | IE_EN_EUR | IE_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | IT_EN_EUR | IT_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | PT_EN_EUR | PT_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | SK_EN_EUR | SK_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | CZ_EN_CZK | CZ_EN_CZK | 224 | 224 | ✅ zapisano |
+| google | SE_EN_SEK | SE_EN_SEK | 224 | 224 | ✅ zapisano |
+| google | DK_EN_DKK | DK_EN_DKK | 224 | 224 | ✅ zapisano |
+| google | HU_EN_HUF | HU_EN_HUF | 224 | 224 | ✅ zapisano |
+| google | NO_EN_EUR | NO_EN_EUR | 224 | 224 | ✅ zapisano |
+| google | GB_EN_GBP | GB_EN_GBP | 224 | 224 | ✅ zapisano |
+| google | US_EN_USD | US_EN_USD | 224 | 224 | ✅ zapisano |
+| google | CA_EN_CAD | CA_EN_CAD | 224 | 224 | ✅ zapisano |
 | google | PL_PLN | PL_PL_PLN | 224 | 224 | ✅ zapisano |
 | google | DE_EUR | DE_DE_EUR | 224 | 224 | ✅ zapisano |
 | google | EN_USD | US_EN_USD | 224 | 224 | ✅ zapisano |
