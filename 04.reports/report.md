@@ -1,26 +1,41 @@
-# Raport z ostatniego uruchomienia: 2026-11-26 14:29
+# Raport z ostatniego uruchomienia: 2026-11-26 16:50
 
-Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **6760 wierszy** (13 rynków), z czego w feedach: **2912**.
+Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **13000 wierszy** (25 rynków), z czego w feedach: **5600**.
 
 ## Feedy
 
 | Platforma | Feed | Rynek | Ofert | Poprzednio | Wynik |
 |---|---|---|---|---|---|
-| google | PL_PLN | PL_PLN | 224 | 224 | ✅ zapisano |
-| google | DE_EUR | DE_EUR | 224 | 224 | ✅ zapisano |
-| google | DE_EUR_EU | DE_EUR_EU | 224 | 224 | ✅ zapisano |
-| google | DE_CHF | DE_CHF | 224 | 224 | ✅ zapisano |
-| google | EN_EUR | EN_EUR | 224 | 224 | ✅ zapisano |
-| google | EN_CZK | EN_CZK | 224 | 224 | ✅ zapisano |
-| google | EN_SEK | EN_SEK | 224 | 224 | ✅ zapisano |
-| google | EN_DKK | EN_DKK | 224 | 224 | ✅ zapisano |
-| google | EN_HUF | EN_HUF | 224 | 224 | ✅ zapisano |
-| google | EN_NO | EN_NO | 224 | 224 | ✅ zapisano |
-| google | EN_GBP | EN_GBP | 224 | 224 | ✅ zapisano |
-| google | EN_USD | EN_USD | 224 | 224 | ✅ zapisano |
-| google | EN_CAD | EN_CAD | 224 | 224 | ✅ zapisano |
-| google | PL_TEST | PL_PLN | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
-| google | FR_EUR | FR_EUR | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
+| google | PL_PL_PLN | PL_PL_PLN | 224 | – | ✅ zapisano |
+| google | DE_DE_EUR | DE_DE_EUR | 224 | – | ✅ zapisano |
+| google | DE_EN_EUR | DE_EN_EUR | 224 | – | ✅ zapisano |
+| google | AT_DE_EUR | AT_DE_EUR | 224 | – | ✅ zapisano |
+| google | LU_DE_EUR | LU_DE_EUR | 224 | – | ✅ zapisano |
+| google | CH_DE_CHF | CH_DE_CHF | 224 | – | ✅ zapisano |
+| google | LI_DE_CHF | LI_DE_CHF | 224 | – | ✅ zapisano |
+| google | NL_EN_EUR | NL_EN_EUR | 224 | – | ✅ zapisano |
+| google | BE_EN_EUR | BE_EN_EUR | 224 | – | ✅ zapisano |
+| google | ES_EN_EUR | ES_EN_EUR | 224 | – | ✅ zapisano |
+| google | FI_EN_EUR | FI_EN_EUR | 224 | – | ✅ zapisano |
+| google | FR_EN_EUR | FR_EN_EUR | 224 | – | ✅ zapisano |
+| google | GR_EN_EUR | GR_EN_EUR | 224 | – | ✅ zapisano |
+| google | IE_EN_EUR | IE_EN_EUR | 224 | – | ✅ zapisano |
+| google | IT_EN_EUR | IT_EN_EUR | 224 | – | ✅ zapisano |
+| google | PT_EN_EUR | PT_EN_EUR | 224 | – | ✅ zapisano |
+| google | SK_EN_EUR | SK_EN_EUR | 224 | – | ✅ zapisano |
+| google | CZ_EN_CZK | CZ_EN_CZK | 224 | – | ✅ zapisano |
+| google | SE_EN_SEK | SE_EN_SEK | 224 | – | ✅ zapisano |
+| google | DK_EN_DKK | DK_EN_DKK | 224 | – | ✅ zapisano |
+| google | HU_EN_HUF | HU_EN_HUF | 224 | – | ✅ zapisano |
+| google | NO_EN_EUR | NO_EN_EUR | 224 | – | ✅ zapisano |
+| google | GB_EN_GBP | GB_EN_GBP | 224 | – | ✅ zapisano |
+| google | US_EN_USD | US_EN_USD | 224 | – | ✅ zapisano |
+| google | CA_EN_CAD | CA_EN_CAD | 224 | – | ✅ zapisano |
+| google | PL_PLN | PL_PL_PLN | 224 | 224 | ✅ zapisano |
+| google | DE_EUR | DE_DE_EUR | 224 | 224 | ✅ zapisano |
+| google | EN_USD | US_EN_USD | 224 | 224 | ✅ zapisano |
+| google | PL_TEST | PL_PL_PLN | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
+| google | FR_FR_EUR | FR_FR_EUR | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 
 ## Dlaczego część wariantów nie trafiła do feedów
 
@@ -125,32 +140,32 @@ Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.fee
 
 | Kraj | Rynek Shopify | Feedy | Stan |
 |---|---|---|---|
-| CH – Szwajcaria | Europe Export (non-EU, 0% VAT) | DE_CHF | ✅ |
-| GB – Wielka Brytania | Europe Export (non-EU, 0% VAT) | EN_GBP | ✅ |
-| LI – Liechtenstein | Europe Export (non-EU, 0% VAT) | DE_CHF | ✅ |
-| NO – Norwegia | Europe Export (non-EU, 0% VAT) | EN_NO | ✅ |
-| AT – Austria | European Union | DE_EUR_EU | ✅ |
-| BE – Belgia | European Union | EN_EUR | ✅ |
-| CZ – Czechy | European Union | EN_CZK | ✅ |
-| DK – Dania | European Union | EN_DKK | ✅ |
-| ES – Hiszpania | European Union | EN_EUR | ✅ |
-| FI – Finlandia | European Union | EN_EUR | ✅ |
-| FR – Francja | European Union | EN_EUR | ✅ |
-| GR – Grecja | European Union | EN_EUR | ✅ |
-| HU – Węgry | European Union | EN_HUF | ✅ |
-| IE – Irlandia | European Union | EN_EUR | ✅ |
-| IT – Włochy | European Union | EN_EUR | ✅ |
-| LU – Luksemburg | European Union | DE_EUR_EU | ✅ |
+| CH – Szwajcaria | Europe Export (non-EU, 0% VAT) | CH_DE_CHF | ✅ |
+| GB – Wielka Brytania | Europe Export (non-EU, 0% VAT) | GB_EN_GBP | ✅ |
+| LI – Liechtenstein | Europe Export (non-EU, 0% VAT) | LI_DE_CHF | ✅ |
+| NO – Norwegia | Europe Export (non-EU, 0% VAT) | NO_EN_EUR | ✅ |
+| AT – Austria | European Union | AT_DE_EUR | ✅ |
+| BE – Belgia | European Union | BE_EN_EUR | ✅ |
+| CZ – Czechy | European Union | CZ_EN_CZK | ✅ |
+| DK – Dania | European Union | DK_EN_DKK | ✅ |
+| ES – Hiszpania | European Union | ES_EN_EUR | ✅ |
+| FI – Finlandia | European Union | FI_EN_EUR | ✅ |
+| FR – Francja | European Union | FR_EN_EUR | ✅ |
+| GR – Grecja | European Union | GR_EN_EUR | ✅ |
+| HU – Węgry | European Union | HU_EN_HUF | ✅ |
+| IE – Irlandia | European Union | IE_EN_EUR | ✅ |
+| IT – Włochy | European Union | IT_EN_EUR | ✅ |
+| LU – Luksemburg | European Union | LU_DE_EUR | ✅ |
 | MC – Monako | European Union | – | celowo bez feedu |
-| NL – Holandia | European Union | EN_EUR | ✅ |
-| PT – Portugalia | European Union | EN_EUR | ✅ |
-| SE – Szwecja | European Union | EN_SEK | ✅ |
+| NL – Holandia | European Union | NL_EN_EUR | ✅ |
+| PT – Portugalia | European Union | PT_EN_EUR | ✅ |
+| SE – Szwecja | European Union | SE_EN_SEK | ✅ |
 | SI – Słowenia | European Union | – | ⚠️ brak feedu |
-| SK – Słowacja | European Union | EN_EUR | ✅ |
-| DE – Niemcy | Germany | DE_EUR | ✅ |
-| CA – Kanada | North America (0% VAT) | EN_CAD | ✅ |
-| US – Stany Zjednoczone | North America (0% VAT) | EN_USD | ✅ |
-| PL – Polska | Poland | PL_PLN | ✅ |
+| SK – Słowacja | European Union | SK_EN_EUR | ✅ |
+| DE – Niemcy | Germany | DE_DE_EUR, DE_EN_EUR, DE_EUR | ✅ |
+| CA – Kanada | North America (0% VAT) | CA_EN_CAD | ✅ |
+| US – Stany Zjednoczone | North America (0% VAT) | US_EN_USD, EN_USD | ✅ |
+| PL – Polska | Poland | PL_PL_PLN, PL_PLN | ✅ |
 
 ## Ostrzeżenia
 
