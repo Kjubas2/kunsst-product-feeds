@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-27 14:25
+# Raport z ostatniego uruchomienia: 2026-11-27 15:55
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **13000 wierszy** (25 rynków), z czego w feedach: **5600**.
 
@@ -160,13 +160,50 @@ Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.fee
 | NL – Holandia | European Union | NL_EN_EUR | ✅ |
 | PT – Portugalia | European Union | PT_EN_EUR | ✅ |
 | SE – Szwecja | European Union | SE_EN_SEK | ✅ |
-| SI – Słowenia | European Union | – | ⚠️ brak feedu |
+| SI – Słowenia | European Union | – | celowo bez feedu |
 | SK – Słowacja | European Union | SK_EN_EUR | ✅ |
 | DE – Niemcy | Germany | DE_DE_EUR, DE_EN_EUR, DE_EUR | ✅ |
 | CA – Kanada | North America (0% VAT) | CA_EN_CAD | ✅ |
 | US – Stany Zjednoczone | North America (0% VAT) | US_EN_USD, EN_USD | ✅ |
 | PL – Polska | Poland | PL_PL_PLN, PL_PLN | ✅ |
 
+## Wysyłka w feedach
+
+Koszt: Shopify → Ustawienia → Wysyłka i dostawa (najtańsza stawka dla jednej sztuki, progi cenowe liczone od ceny wariantu). Czas realizacji: pola produktu/wariantu „Production time” albo „Shipping settings” dla gotowych do wysyłki. Transport: Metaobiekty → „Shipping country”. Wszystko w dniach roboczych.
+
+| Rynek | Kraj | Koszt dostawy w ofertach | Darmowa | Czas realizacji | Transport | Bez kosztu |
+|---|---|---|---|---|---|---|
+| PL_PL_PLN | PL | 0 PLN | wszystkie | 1–3, 5–9, 12–19, 12–26, 20–30 | 1–4 | – |
+| DE_DE_EUR | DE | 0 EUR | wszystkie | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–4 | – |
+| DE_EN_EUR | DE | 0 EUR | wszystkie | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–4 | – |
+| AT_DE_EUR | AT | 0 EUR | wszystkie | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–5 | – |
+| LU_DE_EUR | LU | 167 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 3–5 | – |
+| CH_DE_CHF | CH | 70 CHF | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 5–9 | – |
+| LI_DE_CHF | LI | 230 CHF | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 5–9 | – |
+| NL_EN_EUR | NL | 68 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 3–5 | – |
+| BE_EN_EUR | BE | 68 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 3–5 | – |
+| ES_EN_EUR | ES | 167 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 4–8 | – |
+| FI_EN_EUR | FI | 68 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 4–8 | – |
+| FR_EN_EUR | FR | 0 EUR, 167 EUR | 63 z 224 | 1–3, 5–9, 12–19, 12–26, 20–30 | 3–6 | – |
+| GR_EN_EUR | GR | 167 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 5–9 | – |
+| IE_EN_EUR | IE | 167 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 4–8 | – |
+| IT_EN_EUR | IT | 0 EUR, 68 EUR | 63 z 224 | 1–3, 5–9, 12–19, 12–26, 20–30 | 3–6 | – |
+| PT_EN_EUR | PT | 167 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 4–8 | – |
+| SK_EN_EUR | SK | 68 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–4 | – |
+| CZ_EN_CZK | CZ | 0 CZK | wszystkie | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–4 | – |
+| SE_EN_SEK | SE | 1870 SEK | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 4–8 | – |
+| DK_EN_DKK | DK | 510 DKK | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–6 | – |
+| HU_EN_HUF | HU | 25400 HUF | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 2–5 | – |
+| NO_EN_EUR | NO | 180 EUR | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 5–9 | – |
+| GB_EN_GBP | GB | 160 GBP | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 5–9 | – |
+| US_EN_USD | US | 0 USD, 240 USD | 213 z 224 | 1–3, 5–9, 12–19, 12–26, 20–30 | 7–14 | – |
+| CA_EN_CAD | CA | 330 CAD | – | 1–3, 5–9, 12–19, 12–26, 20–30 | 8–15 | – |
+
+Darmowa dostawa dla wszystkich ofert: **AT, CZ, DE, PL**. Darmowa tylko dla tańszych produktów (progi): **FR, IT, US**.
+
+Lista krajów „Free delivery” na stronie produktu (Dostosuj motyw → Ustawienia motywu → KUB – Free delivery) powinna zawierać dokładnie kraje z pierwszej listy.
+
+
 ## Ostrzeżenia
 
-- Shopify sprzedaje do kraju SI – Słowenia (rynek European Union), ale żaden włączony feed go nie ma. Dopisz kraj do target_countries właściwego feedu i w źródle w GMC albo do countries_without_feed.
+Brak – wszystko w porządku.
