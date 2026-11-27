@@ -114,6 +114,59 @@ def country_check(shop_markets, platform_list, S, warnings):
     return lines
 
 
+def shipping_section(ship, rows, S, platform_list, warnings):
+    """Tabela: co feedy mówią Google o wysyłce w każdym rynku – do porównania z Ustawieniami Shopify."""
+    lines = ["", "## Wysyłka w feedach", "",
+             "Koszt: Shopify → Ustawienia → Wysyłka i dostawa (najtańsza stawka dla jednej sztuki, progi cenowe "
+             "liczone od ceny wariantu). Czas realizacji: pola produktu/wariantu „Production time” albo "
+             "„Shipping settings” dla gotowych do wysyłki. Transport: Metaobiekty → „Shipping country”. "
+             "Wszystko w dniach roboczych.", ""]
+    if not ship or ship.get("error"):
+        return lines + ["Nie udało się odczytać wysyłki – sekcja pominięta."]
+    lines += ["| Rynek | Kraj | Koszt dostawy w ofertach | Darmowa | Czas realizacji | Transport | Bez kosztu |",
+              "|---|---|---|---|---|---|---|"]
+    by_market = collections.defaultdict(list)
+    for r in rows:
+        if r["in_feeds"] == "YES":
+            by_market[r["market"]].append(r)
+    free_everywhere, free_partly = [], []
+    for mid, m in S["markets"].items():
+        if not yes(m.get("enabled")):
+            continue
+        rs = by_market.get(mid, [])
+        cur = m["currency"].strip().upper()
+        country = m["prices_from_country"].strip().upper()
+        prices = sorted({float(r["shipping_price"]) for r in rs if r["shipping_price"]})
+        missing = sum(1 for r in rs if not r["shipping_price"])
+        n_free = sum(1 for r in rs if r["shipping_price"] and float(r["shipping_price"]) == 0)
+        free = "wszystkie" if rs and n_free == len(rs) else (f"{n_free} z {len(rs)}" if n_free else "–")
+        if rs and n_free == len(rs):
+            free_everywhere.append(country)
+        elif n_free:
+            free_partly.append(country)
+        handling = sorted({(r["handling_days_min"], r["handling_days_max"]) for r in rs if r["handling_days_min"] != ""})
+        h_txt = ", ".join(f"{a}–{b}" for a, b in handling) or "–"
+        transit = (ship.get("transit") or {}).get(country)
+        t_txt = f"{transit[0]}–{transit[1]}" if transit else "–"
+        p_txt = ", ".join(f"{p:g} {cur}" for p in prices) or "–"
+        lines.append(f"| {mid} | {country} | {md(p_txt)} | {free} | {h_txt} | {t_txt} | {missing or '–'} |")
+    lines += ["", f"Darmowa dostawa dla wszystkich ofert: **{', '.join(sorted(set(free_everywhere))) or '–'}**. "
+              f"Darmowa tylko dla tańszych produktów (progi): **{', '.join(sorted(set(free_partly))) or '–'}**.", "",
+              "Lista krajów „Free delivery” na stronie produktu (Dostosuj motyw → Ustawienia motywu → "
+              "KUB – Free delivery) powinna zawierać dokładnie kraje z pierwszej listy.", ""]
+    for platform in platform_list:
+        for f in platform["feeds"]:
+            if not yes(f.get("enabled")):
+                continue
+            market = S["markets"].get((f.get("market") or "").strip()) or {}
+            mc = (market.get("prices_from_country") or "").strip().upper()
+            targets = {c.strip().upper() for c in (f.get("target_countries") or "").split(",") if c.strip()}
+            if mc and targets and targets != {mc}:
+                warnings.append(f"Feed {f.get('feed_id')}: kraje {', '.join(sorted(targets))}, a koszt i czas "
+                                f"wysyłki są liczone dla {mc}. Jeden feed = jeden kraj.")
+    return lines
+
+
 def write_master(rows):
     os.makedirs(os.path.dirname(MASTER), exist_ok=True)
     with open(MASTER, "w", encoding="utf-8-sig", newline="") as f:
@@ -164,16 +217,20 @@ def main():
         with open(sys.argv[sys.argv.index("--data-file") + 1], encoding="utf-8") as f:
             data = json.load(f)
         products, option_tr, shop_markets = data["products"], data["option_translations"], data.get("markets")
+        ship = data.get("shipping")
     else:
-        products, option_tr, shop_markets = shopify.fetch(
+        products, option_tr, shop_markets, ship = shopify.fetch(
             g["shopify_store"].strip(), g.get("shopify_api_version", "2026-10").strip(), languages, countries)
     if "--save-data" in sys.argv:
         with open(sys.argv[sys.argv.index("--save-data") + 1], "w", encoding="utf-8") as f:
-            json.dump({"products": products, "option_translations": option_tr, "markets": shop_markets},
-                      f, ensure_ascii=False)
+            json.dump({"products": products, "option_translations": option_tr, "markets": shop_markets,
+                       "shipping": ship}, f, ensure_ascii=False)
 
     warnings = []
-    rows, photo_plan = master_feed.build(products, option_tr, S, warnings)
+    if not ship or ship.get("error"):
+        warnings.append("Nie udało się odczytać wysyłki ze Shopify (" + str((ship or {}).get("error")) + ") – "
+                        "feedy bez kosztu i czasu dostawy; GMC użyje usług wysyłki z konta, jeśli są.")
+    rows, photo_plan = master_feed.build(products, option_tr, S, warnings, ship)
     write_master(rows)
 
     safety = {"min_offers": int(g.get("safety_min_offers", "50") or 50),
@@ -225,6 +282,7 @@ def main():
             lines.append(f"| {i} | {md(title)} | {md(combo)} | {n} |")
 
     lines += country_check(shop_markets, platform_list, S, warnings)
+    lines += shipping_section(ship, rows, S, platform_list, warnings)
 
     lines += ["", "## Ostrzeżenia", ""]
     lines += [f"- {w}" for w in dict.fromkeys(warnings)] or ["Brak – wszystko w porządku."]

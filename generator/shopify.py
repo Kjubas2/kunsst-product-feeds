@@ -6,7 +6,10 @@ Program loguje się danymi aplikacji z Shopify Dev Dashboard
 dostaje klucz ważny 24 h i czyta przez Admin API:
   1. aktywne produkty: tytuł, opis, zdjęcia, metapola, opcje + tłumaczenia,
   2. wszystkie warianty, z ceną dla każdego kraju z 01.settings/02.markets.csv,
-  3. tłumaczenia nazw opcji i ich wartości (np. Golden Hour → Miodowy).
+  3. tłumaczenia nazw opcji i ich wartości (np. Golden Hour → Miodowy),
+  4. wysyłkę: strefy i stawki z Ustawienia → Wysyłka i dostawa (także progi cenowe),
+     czasy transportu z tabeli „Shipping country” i czas wysyłki gotowych sztuk
+     z „Shipping settings” (Zawartość → Metaobiekty).
 """
 import json
 import os
@@ -25,7 +28,9 @@ query Products($after: String) {
       media(first: 40) { nodes { id ... on MediaImage { image { url } } } }
       highlights: metafield(namespace: "custom", key: "product_highlights") { value __TRANSLATIONS_MF__ }
       dimensions: metafield(namespace: "custom", key: "dimensions") { value __TRANSLATIONS_MF__ }
-      lead_time: metafield(namespace: "custom", key: "lead_time") { value }
+      production_from: metafield(namespace: "custom", key: "production_time_from_days") { value }
+      production_to: metafield(namespace: "custom", key: "production_time_to_days") { value }
+      ready_to_ship: metafield(namespace: "custom", key: "ready_to_ship") { value }
     }
   }
 }
@@ -40,7 +45,11 @@ query Variants($id: ID!, $after: String) {
         id title sku availableForSale
         selectedOptions { name value }
         media(first: 1) { nodes { id ... on MediaImage { image { url } } } }
-        inventoryItem { measurement { weight { value unit } } }
+        inventoryQuantity
+        inventoryItem { tracked measurement { weight { value unit } } }
+        production_from: metafield(namespace: "custom", key: "production_time_from_days") { value }
+        production_to: metafield(namespace: "custom", key: "production_time_to_days") { value }
+        ready_to_ship: metafield(namespace: "custom", key: "ready_to_ship") { value }
         __PRICES__
       }
     }
@@ -68,6 +77,124 @@ query Markets($after: String) {
   }
 }
 """
+
+
+PROFILES = """
+query { deliveryProfiles(first: 20) { nodes { id name default profileLocationGroups { locationGroup { id } } } } }
+"""
+
+ZONES = """
+query Zones($id: ID!, $group: ID!, $after: String) {
+  deliveryProfile(id: $id) {
+    profileLocationGroups(locationGroupId: $group) {
+      locationGroupZones(first: 25, after: $after) {
+        pageInfo { hasNextPage endCursor }
+        nodes {
+          zone { name countries { code { countryCode restOfWorld } } }
+          methodDefinitions(first: 10) { nodes {
+            name active
+            rateProvider { __typename ... on DeliveryRateDefinition { price { amount currencyCode } } }
+            methodConditions { field operator conditionCriteria {
+              __typename ... on MoneyV2 { amount currencyCode } ... on Weight { value unit } } }
+          } }
+        }
+      }
+    }
+  }
+}
+"""
+
+PROFILE_ITEMS = """
+query Items($id: ID!, $after: String) {
+  deliveryProfile(id: $id) {
+    profileItems(first: 25, after: $after) {
+      pageInfo { hasNextPage endCursor }
+      nodes { product { id } variants(first: 100) { pageInfo { hasNextPage } nodes { id } } }
+    }
+  }
+}
+"""
+
+METAOBJECTS = """
+query Meta($type: String!) { metaobjects(type: $type, first: 250) { nodes { handle fields { key value } } } }
+"""
+
+
+def fetch_shipping(s):
+    """Wysyłka ze Shopify (tylko odczyt).
+
+    Zwraca {"profiles": [{name, default, variants, zones: [{name, countries, methods}]}],
+            "transit": {"PL": (1, 4), ...}, "ready_dispatch": (1, 3), "error": None}.
+    Przy błędzie odczytu "error" ma opis – feedy powstają wtedy bez kolumny shipping.
+    """
+    out = {"profiles": [], "transit": {}, "ready_dispatch": None, "error": None}
+    try:
+        for prof in s.query(PROFILES, {})["deliveryProfiles"]["nodes"]:
+            entry = {"name": prof["name"], "default": prof["default"], "variants": set(), "zones": [],
+                     "items_incomplete": False}
+            for plg in prof.get("profileLocationGroups") or []:
+                cursor = None
+                while True:
+                    groups = s.query(ZONES, {"id": prof["id"], "group": plg["locationGroup"]["id"],
+                                             "after": cursor})["deliveryProfile"]["profileLocationGroups"]
+                    zones = groups[0]["locationGroupZones"]
+                    for z in zones["nodes"]:
+                        countries = ["*" if c["code"].get("restOfWorld") else c["code"]["countryCode"]
+                                     for c in z["zone"]["countries"]]
+                        methods = []
+                        for m in z["methodDefinitions"]["nodes"]:
+                            rate = m.get("rateProvider") or {}
+                            methods.append({
+                                "name": m["name"], "active": m["active"],
+                                "price": float(rate["price"]["amount"]) if rate.get("price") else None,
+                                "currency": (rate.get("price") or {}).get("currencyCode"),
+                                "calculated": rate.get("__typename") != "DeliveryRateDefinition",
+                                "conditions": [{"field": c["field"], "operator": c["operator"],
+                                                "amount": float(c["conditionCriteria"].get("amount")
+                                                                or c["conditionCriteria"].get("value") or 0),
+                                                "currency": c["conditionCriteria"].get("currencyCode")}
+                                               for c in m.get("methodConditions") or []],
+                            })
+                        entry["zones"].append({"name": z["zone"]["name"], "countries": countries,
+                                               "methods": methods})
+                    if not zones["pageInfo"]["hasNextPage"]:
+                        break
+                    cursor = zones["pageInfo"]["endCursor"]
+            if not prof["default"]:
+                cursor = None
+                while True:
+                    items = s.query(PROFILE_ITEMS, {"id": prof["id"], "after": cursor})["deliveryProfile"]["profileItems"]
+                    for it in items["nodes"]:
+                        entry["variants"].update(v["id"] for v in it["variants"]["nodes"])
+                        entry["items_incomplete"] |= it["variants"]["pageInfo"]["hasNextPage"]
+                    if not items["pageInfo"]["hasNextPage"]:
+                        break
+                    cursor = items["pageInfo"]["endCursor"]
+            entry["variants"] = sorted(entry["variants"])
+            out["profiles"].append(entry)
+
+        def number(v):
+            try:
+                return int(float(v))
+            except (TypeError, ValueError):
+                return None
+
+        for mo in s.query(METAOBJECTS, {"type": "shipping_country"})["metaobjects"]["nodes"]:
+            f = {x["key"]: x["value"] for x in mo["fields"]}
+            code = (f.get("country_code") or mo["handle"]).strip().upper()
+            lo, hi = number(f.get("transit_time_from_days")), number(f.get("transit_time_to_days"))
+            if lo is not None:
+                out["transit"][code] = (lo, hi if hi is not None else lo)
+        for mo in s.query(METAOBJECTS, {"type": "shipping_settings"})["metaobjects"]["nodes"]:
+            if mo["handle"] == "default":
+                f = {x["key"]: x["value"] for x in mo["fields"]}
+                lo = number(f.get("ready_to_ship_dispatch_from_days"))
+                hi = number(f.get("ready_to_ship_dispatch_to_days"))
+                if lo is not None:
+                    out["ready_dispatch"] = (lo, hi if hi is not None else lo)
+    except (SystemExit, KeyError, TypeError, IndexError) as e:  # noqa: PERF203
+        out["error"] = str(e)[:500] or e.__class__.__name__
+    return out
 
 
 def fetch_markets(s):
@@ -140,12 +267,13 @@ class Store:
 
 
 def fetch(store, api_version, languages, countries):
-    """Zwraca (produkty, tłumaczenia_opcji, rynki).
+    """Zwraca (produkty, tłumaczenia_opcji, rynki, wysyłka).
 
     produkty – aktywne produkty, każdy z pełną listą wariantów w p["variants"]["nodes"];
                cena wariantu dla kraju XX jest w polu price_XX.
     tłumaczenia_opcji – {id opcji lub wartości opcji: {"pl": "...", "de": "..."}}.
     rynki – rynki Shopify z krajami (albo None, gdy nie udało się ich odczytać).
+    wysyłka – strefy, stawki i czasy (patrz fetch_shipping).
     """
     s = Store(store, api_version)
     q_products = (PRODUCTS.replace("__TRANSLATIONS__", _translations(languages))
@@ -155,7 +283,7 @@ def fetch(store, api_version, languages, countries):
         f"{{ price {{ amount currencyCode }} compareAtPrice {{ amount }} }}"
         for c in countries)
     # mniej wariantów na stronę, gdy rynków jest dużo (limit kosztu jednego zapytania w Shopify)
-    page = max(5, min(50, 900 // (3 * len(countries) + 12)))
+    page = max(5, min(50, 900 // (3 * len(countries) + 16)))
     q_variants = VARIANTS.replace("__PRICES__", prices).replace("__PAGE__", str(page))
 
     products, cursor = [], None
@@ -187,4 +315,4 @@ def fetch(store, api_version, languages, countries):
                 option_translations[n["resourceId"]] = {
                     l: next((t["value"] for t in n.get(f"t_{l}") or [] if t["key"] == "name" and t["value"]), None)
                     for l in other}
-    return products, option_translations, fetch_markets(s)
+    return products, option_translations, fetch_markets(s), fetch_shipping(s)
