@@ -1,4 +1,4 @@
-# Raport z ostatniego uruchomienia: 2026-11-27 15:55
+# Raport z ostatniego uruchomienia: 2026-11-27 15:57
 
 Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **13000 wierszy** (25 rynków), z czego w feedach: **5600**.
 
@@ -31,9 +31,9 @@ Pobrano ze Shopify: **10 produktów, 520 wariantów**. Shopify Master Feed: **13
 | google | GB_EN_GBP | GB_EN_GBP | 224 | 224 | ✅ zapisano |
 | google | US_EN_USD | US_EN_USD | 224 | 224 | ✅ zapisano |
 | google | CA_EN_CAD | CA_EN_CAD | 224 | 224 | ✅ zapisano |
-| google | PL_PLN | PL_PL_PLN | 224 | 224 | ✅ zapisano |
-| google | DE_EUR | DE_DE_EUR | 224 | 224 | ✅ zapisano |
-| google | EN_USD | US_EN_USD | 224 | 224 | ✅ zapisano |
+| google | PL_PLN | PL_PL_PLN | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
+| google | DE_EUR | DE_DE_EUR | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
+| google | EN_USD | US_EN_USD | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 | google | PL_TEST | PL_PL_PLN | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 | google | FR_FR_EUR | FR_FR_EUR | – | – | wyłączony (enabled = NO) – plik nie jest tworzony |
 
@@ -162,10 +162,10 @@ Kraje w GMC ustawiasz w źródle danych – kolumna `target_countries` w `01.fee
 | SE – Szwecja | European Union | SE_EN_SEK | ✅ |
 | SI – Słowenia | European Union | – | celowo bez feedu |
 | SK – Słowacja | European Union | SK_EN_EUR | ✅ |
-| DE – Niemcy | Germany | DE_DE_EUR, DE_EN_EUR, DE_EUR | ✅ |
+| DE – Niemcy | Germany | DE_DE_EUR, DE_EN_EUR | ✅ |
 | CA – Kanada | North America (0% VAT) | CA_EN_CAD | ✅ |
-| US – Stany Zjednoczone | North America (0% VAT) | US_EN_USD, EN_USD | ✅ |
-| PL – Polska | Poland | PL_PL_PLN, PL_PLN | ✅ |
+| US – Stany Zjednoczone | North America (0% VAT) | US_EN_USD | ✅ |
+| PL – Polska | Poland | PL_PL_PLN | ✅ |
 
 ## Wysyłka w feedach
 
