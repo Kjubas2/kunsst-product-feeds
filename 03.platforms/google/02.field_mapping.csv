@@ -34,6 +34,7 @@ product_detail,{detail_6},Cecha techniczna,recommended
 shipping_weight,{weight},Tylko gdy waga większa od 0,no
 min_handling_time,{handling_days_min},,recommended
 max_handling_time,{handling_days_max},,recommended
+"shipping(country:service:price:min_handling_time:max_handling_time:min_transit_time:max_transit_time)","{shipping_country}:{shipping_service}:{shipping_price} {currency}:{handling_days_min}:{handling_days_max}:{transit_days_min}:{transit_days_max}","Koszt i czas dostawy ze Shopify (Wysyłka i dostawa + Metaobiekty). Zastępuje usługi wysyłki z konta GMC. Pusta, gdy kraj nie ma strefy w Shopify",recommended
 custom_label_0,{product_line},Etykieta do kampanii,no
 custom_label_1,{category},Etykieta do kampanii,no
 custom_label_2,{wood_species},Etykieta do kampanii,no

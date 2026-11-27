@@ -29,7 +29,13 @@ product_type,Twoja kategoria,03.products_settings,Home furniture > Desks
 highlight_1 … highlight_6,Zalety produktu,Shopify (metapole wyróżników),Prowadnice szuflad bez elementów metalowych
 detail_1 … detail_6,"Cechy techniczne: sekcja:cecha:wartość (wymiary z metapola; pomijane, gdy warianty różnią się rozmiarem)",Shopify (metapole wymiarów),Wymiary:Wysokość:75 cm
 weight,Waga wariantu,Shopify,29 kg
-handling_days_min,Czas realizacji od (dni robocze),"Shopify (metapole lead time, tygodnie × 5)",10
-handling_days_max,Czas realizacji do (dni robocze),Shopify,20
+ready_to_ship,"YES = gotowe do wysyłki: pole „Ready to ship” wariantu albo produktu i sztuki na stanie (ta sama zasada co na stronie)",Shopify,NO
+handling_days_min,"Czas od zamówienia do nadania, od (dni robocze): czas produkcji albo – dla gotowych – czas wysyłki","Shopify: pola Production time from/to (wariant, a gdy puste – produkt); gotowe: Metaobiekty → Shipping settings",12
+handling_days_max,"Jak wyżej, do",Shopify,26
+shipping_country,Kraj wysyłki (= kraj cen rynku); puste = brak strefy w Shopify,02.markets,PL
+shipping_service,Nazwa metody wysyłki,Shopify → Wysyłka i dostawa,Door-to-door delivery
+shipping_price,"Koszt dostawy jednej sztuki w walucie rynku (najtańsza pasująca stawka, progi cenowe liczone od ceny wariantu)",Shopify → Wysyłka i dostawa,0.00
+transit_days_min,"Czas transportu do kraju, od (dni robocze)",Shopify: Metaobiekty → Shipping country,1
+transit_days_max,"Czas transportu, do",Shopify: Metaobiekty → Shipping country,4
 in_feeds,YES / NO – czy wariant trafia do feedów (NO = powód w skip_reason),Wyliczane,YES
 skip_reason,Dlaczego NO,Wyliczane,

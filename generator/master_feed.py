@@ -25,7 +25,9 @@ COLUMNS = (["market", "offer_id", "product_id", "variant_id", "sku", "product_na
             "product_line", "category", "priority", "google_product_category", "product_type"]
            + [f"highlight_{i}" for i in range(1, HIGHLIGHTS + 1)]
            + [f"detail_{i}" for i in range(1, DETAILS + 1)]
-           + ["weight", "handling_days_min", "handling_days_max", "in_feeds", "skip_reason"])
+           + ["weight", "ready_to_ship", "handling_days_min", "handling_days_max",
+              "shipping_country", "shipping_service", "shipping_price", "transit_days_min", "transit_days_max",
+              "in_feeds", "skip_reason"])
 
 
 # ---------------------------------------------------------------- pomocnicze
@@ -95,17 +97,104 @@ def metafield_lines(product, name, lang):
     return rich_text(m["value"])
 
 
-def lead_time_days(text):
-    """'Lead time: 2 -4 weeks' → (10, 20) dni roboczych; '3 - 7 business days' → (3, 7)."""
-    if not text:
-        return "", ""
-    numbers = [int(x) for x in re.findall(r"\d+", text)]
-    if not numbers:
-        return "", ""
-    lo, hi = numbers[0], numbers[1] if len(numbers) > 1 else numbers[0]
-    if "week" in text.lower():
-        return lo * 5, hi * 5
-    return lo, hi
+def days(value):
+    """Wartość metapola liczbowego → int albo None."""
+    try:
+        return int(float((value or {}).get("value")))
+    except (TypeError, ValueError):
+        return None
+
+
+def is_true(field):
+    return str((field or {}).get("value", "")).strip().lower() == "true"
+
+
+def ready_to_ship(p, v):
+    """Gotowe do wysyłki = pole wariantu (gdy ustawione) albo pole produktu, i są sztuki na stanie
+    (albo stan nie jest śledzony). Ta sama zasada co na stronie produktu (snippets/kub-shipping-line)."""
+    flag = v.get("ready_to_ship") if v.get("ready_to_ship") else p.get("ready_to_ship")
+    if not is_true(flag):
+        return False
+    tracked = (v.get("inventoryItem") or {}).get("tracked")
+    return tracked is False or (v.get("inventoryQuantity") or 0) > 0
+
+
+def handling(p, v, ship, warnings):
+    """Czas od zamówienia do nadania (dni robocze) → (od, do, gotowe_do_wysyłki)."""
+    if ready_to_ship(p, v):
+        rd = ship.get("ready_dispatch") if ship else None
+        if rd:
+            return rd[0], rd[1], True
+        warnings.append("Brak czasu wysyłki gotowych sztuk (Metaobiekty → Shipping settings → default) – "
+                        "gotowe warianty dostały czas produkcji.")
+    lo = days(v.get("production_from"))
+    hi = days(v.get("production_to"))
+    if lo is None:
+        lo, hi = days(p.get("production_from")), days(p.get("production_to"))
+    if lo is None:
+        warnings.append(f"Brak czasu realizacji (pole „Production time from/to”) w produkcie {p['title']} – "
+                        "feedy nie podają czasu realizacji, Google przyjmie własne założenia.")
+        return "", "", False
+    return lo, hi if hi is not None else lo, False
+
+
+def zone_for(profile, country):
+    exact = next((z for z in profile["zones"] if country in z["countries"]), None)
+    return exact or next((z for z in profile["zones"] if "*" in z["countries"]), None)
+
+
+def condition_ok(c, amount, currency, warnings, where):
+    if c["field"] != "TOTAL_PRICE":
+        warnings.append(f"Wysyłka {where}: warunek „{c['field']}” (np. waga) – generator liczy tylko progi cenowe, "
+                        "ta stawka jest pomijana w feedach.")
+        return False
+    if c["currency"] and c["currency"] != currency:
+        warnings.append(f"Wysyłka {where}: próg w {c['currency']}, a ceny w feedzie w {currency} – "
+                        "ta stawka jest pomijana w feedach. Ustaw próg w walucie kraju.")
+        return False
+    if c["operator"] == "GREATER_THAN_OR_EQUAL_TO":
+        return amount >= c["amount"] - 1e-9
+    if c["operator"] == "LESS_THAN_OR_EQUAL_TO":
+        return amount <= c["amount"] + 1e-9
+    warnings.append(f"Wysyłka {where}: nieznany warunek {c['operator']} – stawka pominięta.")
+    return False
+
+
+def shipping_rate(ship, variant_gid, country, amount, currency, warnings):
+    """Najtańsza stawka ze Shopify, jaką zapłaci klient z danego kraju za JEDNĄ sztukę tego wariantu
+    (progi cenowe liczone od ceny wariantu). → (nazwa, cena) albo None."""
+    if not ship or ship.get("error") or not ship.get("profiles"):
+        return None
+    profile = next((pr for pr in ship["profiles"] if not pr["default"] and variant_gid in pr["variants"]), None) \
+        or next((pr for pr in ship["profiles"] if pr["default"]), None)
+    if not profile:
+        return None
+    zone = zone_for(profile, country)
+    if not zone:
+        warnings.append(f"Kraj {country} nie ma strefy w profilu wysyłki „{profile['name']}” (Ustawienia → Wysyłka "
+                        "i dostawa) – oferty bez kosztu wysyłki. Dodaj strefę albo wyłącz feed tego kraju.")
+        return None
+    where = f"{zone['name']} ({profile['name']})"
+    best, before = None, len(warnings)
+    for m in zone["methods"]:
+        if not m["active"]:
+            continue
+        if m["calculated"] or m["price"] is None:
+            warnings.append(f"Wysyłka {where}: stawka „{m['name']}” jest liczona przez przewoźnika/aplikację – "
+                            "generator jej nie zna i ją pomija.")
+            continue
+        if not all(condition_ok(c, amount, currency, warnings, where) for c in m["conditions"]):
+            continue
+        if m["price"] > 0 and m["currency"] != currency:
+            warnings.append(f"Wysyłka {where}: stawka {m['price']:g} {m['currency']}, a ceny w feedzie w {currency} – "
+                            "stawka pominięta. Ustaw ją w walucie kraju.")
+            continue
+        if best is None or m["price"] < best[1]:
+            best = (m["name"], m["price"])
+    if best is None and len(warnings) == before:
+        warnings.append(f"Wysyłka {where}: dla części cen żadna stawka nie pasuje (luka między progami?) – "
+                        "te oferty są bez kosztu wysyłki.")
+    return best
 
 
 def lower_first(text, lang):
@@ -174,7 +263,7 @@ def image_key(v, image_options):
 
 # ---------------------------------------------------------------- budowanie
 
-def build(products, option_tr, S, warnings):
+def build(products, option_tr, S, warnings, ship=None):
     """Zwraca (wiersze Master Feed, plan zdjęć).
 
     plan zdjęć – {(product_id, nazwa produktu, priorytet, kombinacja): liczba wariantów bez zdjęcia}.
@@ -236,8 +325,8 @@ def build(products, option_tr, S, warnings):
 
         size_varies = any(norm((S["options"].get(norm(o["name"])) or {}).get("role")) == "size"
                           and len(o["optionValues"]) > 1 for o in p["options"])
-        days = lead_time_days((p.get("lead_time") or {}).get("value", ""))
-        prepared.append((p, pid, ps, images, size_varies, days))
+        times = {v["id"]: handling(p, v, ship, warnings) for v in variants}
+        prepared.append((p, pid, ps, images, size_varies, times))
 
     for market_id, m in markets:
         lang = norm(m["language"])
@@ -245,7 +334,7 @@ def build(products, option_tr, S, warnings):
         country = m["prices_from_country"].strip().upper()
         path = (m.get("language_path") or "").strip()
 
-        for p, pid, ps, images, size_varies, (dmin, dmax) in prepared:
+        for p, pid, ps, images, size_varies, times in prepared:
             handle = translated(p, lang, "handle") or p["handle"]
             name = (ps.get(f"feed_title_{lang}") or "").strip() or translated(p, lang, "title") or p["title"]
             description = plain_text(translated(p, lang, "body_html") or p["descriptionHtml"])
@@ -279,6 +368,7 @@ def build(products, option_tr, S, warnings):
                 title = f"{name}{separator}{features}" if features else name
 
                 image, extra, missing_image = images[v["id"]]
+                dmin, dmax, ready = times[v["id"]]
                 weight = (v.get("inventoryItem") or {}).get("measurement", {}).get("weight") or {}
                 row = {
                     "market": market_id,
@@ -304,7 +394,10 @@ def build(products, option_tr, S, warnings):
                     "product_type": ps.get("product_type", ""),
                     "weight": f"{weight['value']:g} {WEIGHT_UNITS.get(weight.get('unit'), 'kg')}"
                               if weight.get("value") else "",
+                    "ready_to_ship": "YES" if ready else "NO",
                     "handling_days_min": dmin, "handling_days_max": dmax,
+                    "shipping_country": "", "shipping_service": "", "shipping_price": "",
+                    "transit_days_min": "", "transit_days_max": "",
                 }
                 for i in range(HIGHLIGHTS):
                     row[f"highlight_{i + 1}"] = highlights[i] if i < len(highlights) else ""
@@ -324,6 +417,18 @@ def build(products, option_tr, S, warnings):
                         row["price"], row["sale_price"] = f"{float(compare['amount']):.2f}", f"{price:.2f}"
                     else:
                         row["price"] = f"{price:.2f}"
+                    # --- koszt i czas dostawy dla kraju rynku (cena zapłacona = cena po promocji)
+                    rate = shipping_rate(ship, v["id"], country, price, currency, warnings)
+                    if rate:
+                        row["shipping_country"] = country
+                        row["shipping_service"] = rate[0].replace(":", " ").replace(",", " ")
+                        row["shipping_price"] = f"{rate[1]:.2f}"
+                        transit = (ship.get("transit") or {}).get(country)
+                        if transit:
+                            row["transit_days_min"], row["transit_days_max"] = transit
+                        else:
+                            warnings.append(f"Brak czasu transportu dla kraju {country} (Metaobiekty → Shipping "
+                                            "country) – feedy bez czasu transportu do tego kraju.")
 
                 # --- czy wariant trafia do feedów (pierwszy powód wygrywa)
                 if not yes(ps.get("in_feeds"), True):

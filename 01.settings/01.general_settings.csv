@@ -9,5 +9,5 @@ skip_variants_containing,Custom Order,"Warianty, w których nazwie jest ten teks
 title_separator, – ,Znak między nazwą mebla a cechami wariantu w tytule
 safety_min_offers,50,"Jeśli feed ma mniej ofert – stary plik zostaje, GitHub wysyła e-mail"
 safety_max_drop,30%,"Jeśli liczba ofert spadnie bardziej – stary plik zostaje, GitHub wysyła e-mail"
-countries_without_feed,MC,"Kraje, do których Shopify sprzedaje, ale które celowo nie mają feedu (kody krajów po przecinku, np. MC = Monako). Raport nie będzie o nie upominał"
+countries_without_feed,"MC,SI","Kraje, do których Shopify sprzedaje, ale które celowo nie mają feedu (kody krajów po przecinku, np. MC = Monako, SI = Słowenia). Raport nie będzie o nie upominał"
 run_every_hours,6,"Informacja: program działa co 6 godzin, o 01:17, 07:17, 13:17 i 19:17 czasu polskiego zimą (latem godzinę później; GitHub bywa spóźniony do ok. godziny). Zmiana wymaga edycji pliku .github/workflows/generate-feeds.yml (linia cron)"
